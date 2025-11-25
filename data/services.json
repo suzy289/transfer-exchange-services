@@ -1,0 +1,139 @@
+{
+  "services": [
+    {
+      "id": "uba-cards",
+      "title": "Cartes Bancaires UBA",
+      "titleEn": "UBA Banking Cards",
+      "description": "Délivrance et recharge de cartes UBA avec différents plafonds",
+      "descriptionEn": "Issuance and recharge of UBA cards with different limits",
+      "icon": "💳",
+      "category": "banking",
+      "details": [
+        "Délivrance des cartes UBA",
+        "Recharge des cartes existantes",
+        "Support technique et assistance"
+      ],
+      "detailsEn": [
+        "UBA card issuance",
+        "Recharge of existing cards",
+        "Technical support and assistance"
+      ]
+    },
+    {
+      "id": "account-opening",
+      "title": "Ouverture de Compte",
+      "titleEn": "Account Opening",
+      "description": "Accompagnement complet pour l'ouverture de compte UBA",
+      "descriptionEn": "Complete support for UBA account opening",
+      "icon": "📋",
+      "category": "banking",
+      "details": [
+        "Récupération des dossiers de création de compte",
+        "Accompagnement dans la constitution des dossiers",
+        "Dépôt et suivi des dossiers"
+      ],
+      "detailsEn": [
+        "Collection of account opening documents",
+        "Support in document preparation",
+        "Submission and follow-up of files"
+      ]
+    },
+    {
+      "id": "deposits-withdrawals",
+      "title": "Dépôts & Retraits",
+      "titleEn": "Deposits & Withdrawals",
+      "description": "Opérations sur comptes UBA au guichet",
+      "descriptionEn": "UBA account operations at the counter",
+      "icon": "💰",
+      "category": "banking",
+      "details": [
+        "Dépôts sur comptes UBA",
+        "Retraits sur comptes UBA",
+        "Consultation de solde"
+      ],
+      "detailsEn": [
+        "Deposits to UBA accounts",
+        "Withdrawals from UBA accounts",
+        "Balance inquiry"
+      ]
+    },
+    {
+      "id": "m2u",
+      "title": "Application M2U",
+      "titleEn": "M2U Application",
+      "description": "Mobile Banking UBA - Transferts et paiements via application",
+      "descriptionEn": "UBA Mobile Banking - Transfers and payments via mobile app",
+      "icon": "📱",
+      "category": "mobile",
+      "details": [
+        "Service de transfert d'argent via application mobile",
+        "Paiements en ligne",
+        "Fonctionne comme Sara Mobile Money"
+      ],
+      "detailsEn": [
+        "Money transfer service via mobile app",
+        "Online payments",
+        "Works like Sara Mobile Money"
+      ]
+    },
+    {
+      "id": "currency-exchange",
+      "title": "Change de Devises",
+      "titleEn": "Currency Exchange",
+      "description": "Achat et vente d'Euros et Dollars au meilleur taux",
+      "descriptionEn": "Buy and sell Euros and Dollars at the best rate",
+      "icon": "💵",
+      "category": "exchange",
+      "details": [
+        "Achat de devises (EUR, USD)",
+        "Vente de devises (EUR, USD)",
+        "Taux compétitifs"
+      ],
+      "detailsEn": [
+        "Currency purchase (EUR, USD)",
+        "Currency sale (EUR, USD)",
+        "Competitive rates"
+      ]
+    },
+    {
+      "id": "money-transfer",
+      "title": "Transferts d'Argent",
+      "titleEn": "Money Transfers",
+      "description": "MoneyGram, Western Union, Ria, Juba - Envoi et réception",
+      "descriptionEn": "MoneyGram, Western Union, Ria, Juba - Send and receive",
+      "icon": "🌍",
+      "category": "transfer",
+      "details": [
+        "Transferts nationaux (Orange Money, MTN Mobile Money)",
+        "Transferts internationaux (MoneyGram, Western Union, Ria, Juba)",
+        "Envoi et réception d'argent"
+      ],
+      "detailsEn": [
+        "National transfers (Orange Money, MTN Mobile Money)",
+        "International transfers (MoneyGram, Western Union, Ria, Juba)",
+        "Send and receive money"
+      ]
+    },
+    {
+      "id": "bill-payment",
+      "title": "Paiement de Factures",
+      "titleEn": "Bill Payment",
+      "description": "Électricité, Internet et autres services",
+      "descriptionEn": "Electricity, Internet and other services",
+      "icon": "⚡",
+      "category": "banking",
+      "details": [
+        "Paiement de factures d'électricité",
+        "Paiement de factures Internet",
+        "Autres services de paiement"
+      ],
+      "detailsEn": [
+        "Electricity bill payment",
+        "Internet bill payment",
+        "Other payment services"
+      ]
+    }
+  ]
+}
+
+

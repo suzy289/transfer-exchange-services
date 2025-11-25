@@ -1,0 +1,141 @@
+import { Service } from '@/types';
+
+export const services: Service[] = [
+  {
+    id: 'uba-cards',
+    title: 'Cartes Bancaires UBA',
+    titleEn: 'UBA Banking Cards',
+    description: 'Vente et recharge de cartes bancaires UBA',
+    descriptionEn: 'Sale and recharge of UBA banking cards',
+    icon: '💳',
+    category: 'banking',
+    details: [
+      'Délivrance des cartes UBA',
+      'Recharge des cartes existantes',
+      'Support technique et assistance',
+    ],
+    detailsEn: [
+      'UBA card issuance',
+      'Recharge of existing cards',
+      'Technical support and assistance',
+    ],
+  },
+  {
+    id: 'account-opening',
+    title: 'Ouverture de Compte',
+    titleEn: 'Account Opening',
+    description: 'Récupération des dossiers de création de compte UBA',
+    descriptionEn: 'Collection of UBA account opening documents',
+    icon: '📋',
+    category: 'banking',
+    details: [
+      'Accompagnement des clients dans la constitution et le dépôt de leurs dossiers',
+      'Récupération des dossiers de création de compte',
+      'Suivi et assistance complète',
+    ],
+    detailsEn: [
+      'Collection of account opening documents',
+      'Support in document preparation',
+      'Submission and follow-up of files',
+    ],
+  },
+  {
+    id: 'deposits-withdrawals',
+    title: 'Dépôts & Retraits',
+    titleEn: 'Deposits & Withdrawals',
+    description: 'Opérations sur comptes UBA au guichet',
+    descriptionEn: 'UBA account operations at the counter',
+    icon: '💰',
+    category: 'banking',
+    details: [
+      'Dépôts sur comptes UBA',
+      'Retraits sur comptes UBA',
+      'Consultation de solde',
+    ],
+    detailsEn: [
+      'Deposits to UBA accounts',
+      'Withdrawals from UBA accounts',
+      'Balance inquiry',
+    ],
+  },
+  {
+    id: 'm2u',
+    title: 'Application M2U',
+    titleEn: 'M2U Application',
+    description: 'Application M2U (Mobile Banking UBA)',
+    descriptionEn: 'M2U Application (UBA Mobile Banking)',
+    icon: '📱',
+    category: 'mobile',
+    details: [
+      'Service de transfert d\'argent et de paiement via application mobile',
+      'Fonctionne comme Sara Mobile Money ou d\'autres solutions de mobile banking',
+      'Paiements en ligne sécurisés',
+    ],
+    detailsEn: [
+      'Money transfer service via mobile app',
+      'Online payments',
+      'Works like Sara Mobile Money',
+    ],
+  },
+  {
+    id: 'currency-exchange',
+    title: 'Change de Devises',
+    titleEn: 'Currency Exchange',
+    description: 'Achat et vente de devises, principalement Euro et Dollar',
+    descriptionEn: 'Buy and sell currencies, mainly Euro and Dollar',
+    icon: '💵',
+    category: 'exchange',
+    details: [
+      'Achat de devises : Euro (EUR) et Dollar (USD)',
+      'Vente de devises : Euro (EUR) et Dollar (USD)',
+      'Taux compétitifs et transparents',
+    ],
+    detailsEn: [
+      'Currency purchase (EUR, USD)',
+      'Currency sale (EUR, USD)',
+      'Competitive rates',
+    ],
+  },
+  {
+    id: 'money-transfer',
+    title: 'Transferts d\'Argent',
+    titleEn: 'Money Transfers',
+    description: 'Services de transfert d\'argent national et international',
+    descriptionEn: 'National and international money transfer services',
+    icon: '🌍',
+    category: 'transfer',
+    details: [
+      'Transferts nationaux : Orange Money, MTN Mobile Money',
+      'Transferts internationaux : MoneyGram, Western Union, Ria, Juba',
+      'Envoi et réception d\'argent depuis et vers l\'étranger',
+      'Opérations rapides au niveau local',
+    ],
+    detailsEn: [
+      'National transfers: Orange Money, MTN Mobile Money',
+      'International transfers: MoneyGram, Western Union, Ria, Juba',
+      'Send and receive money from and to abroad',
+      'Fast operations at local level',
+    ],
+  },
+  {
+    id: 'bill-payment',
+    title: 'Paiement de Factures',
+    titleEn: 'Bill Payment',
+    description: 'Électricité, Internet et autres services',
+    descriptionEn: 'Electricity, Internet and other services',
+    icon: '⚡',
+    category: 'banking',
+    details: [
+      'Paiement de factures d\'électricité',
+      'Paiement de factures Internet',
+      'Autres services de paiement',
+    ],
+    detailsEn: [
+      'Electricity bill payment',
+      'Internet bill payment',
+      'Other payment services',
+    ],
+  },
+];
+
+

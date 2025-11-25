@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #EF4444;
+  --primary-dark: #DC2626;
+  --primary-light: #F87171;
+  --secondary: #1A1A1A;
+  --background: #FFFFFF;
+  --text-primary: #1A1A1A;
+  --text-secondary: #4B4B4B;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', 'Roboto', system-ui, sans-serif;
+  color: var(--text-primary);
+  background-color: var(--background);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Sidebar open - shift body to the right */
+body.sidebar-open {
+  transform: translateX(320px);
+}
+
+@media (max-width: 1024px) {
+  body.sidebar-open {
+    transform: translateX(0);
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 3rem;
+  }
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--primary);
+  color: white;
+}

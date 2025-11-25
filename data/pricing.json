@@ -1,0 +1,69 @@
+{
+  "pricingTiers": [
+    {
+      "id": "standard",
+      "name": "Standard",
+      "nameFr": "Standard",
+      "nameEn": "Standard",
+      "price": 10000,
+      "currency": "FCFA",
+      "dailyLimit": 250000,
+      "features": [
+        "Carte UBA standard",
+        "Retraits quotidiens",
+        "Support client"
+      ],
+      "featuresEn": [
+        "Standard UBA card",
+        "Daily withdrawals",
+        "Customer support"
+      ],
+      "badge": null,
+      "popular": false
+    },
+    {
+      "id": "premium",
+      "name": "Premium",
+      "nameFr": "Premium",
+      "nameEn": "Premium",
+      "price": 12000,
+      "currency": "FCFA",
+      "dailyLimit": 500000,
+      "features": [
+        "Carte UBA premium",
+        "Plafond élevé",
+        "Assistance prioritaire"
+      ],
+      "featuresEn": [
+        "Premium UBA card",
+        "High limit",
+        "Priority assistance"
+      ],
+      "badge": "popular",
+      "popular": true
+    },
+    {
+      "id": "gold",
+      "name": "Gold",
+      "nameFr": "Gold",
+      "nameEn": "Gold",
+      "price": 14500,
+      "currency": "FCFA",
+      "dailyLimit": 1500000,
+      "features": [
+        "Carte UBA gold",
+        "Plafond maximum",
+        "Service VIP"
+      ],
+      "featuresEn": [
+        "Gold UBA card",
+        "Maximum limit",
+        "VIP service"
+      ],
+      "badge": "gold",
+      "popular": false
+    }
+  ]
+}
+
+

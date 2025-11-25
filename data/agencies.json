@@ -1,0 +1,125 @@
+{
+  "agencies": [
+    {
+      "id": "awae",
+      "name": "Awae - Escalier",
+      "address": "Face DOV",
+      "city": "Yaoundé",
+      "region": "Centre",
+      "coords": {
+        "lat": 3.8480,
+        "lng": 11.5021
+      },
+      "phone": "+237 6 90 03 90 13",
+      "whatsapp": "+237 6 90 03 90 13",
+      "email": "",
+      "hours": {
+        "weekdays": "8h-17h",
+        "saturday": "8h-13h",
+        "sunday": "Fermé"
+      },
+      "description": "Point de vente situé à Awae, Escalier, face DOV"
+    },
+    {
+      "id": "gousso",
+      "name": "Gousso",
+      "address": "Face Hôtel Général",
+      "city": "Yaoundé",
+      "region": "Centre",
+      "coords": {
+        "lat": 3.8480,
+        "lng": 11.5021
+      },
+      "phone": "+237 6 90 03 90 13",
+      "whatsapp": "+237 6 90 03 90 13",
+      "email": "",
+      "hours": {
+        "weekdays": "8h-17h",
+        "saturday": "8h-13h",
+        "sunday": "Fermé"
+      },
+      "description": "Point de vente situé à Gousso, face Hôtel Général"
+    },
+    {
+      "id": "ahala",
+      "name": "Carrefour Ahala",
+      "address": "Centre-ville",
+      "city": "Yaoundé",
+      "region": "Centre",
+      "coords": {
+        "lat": 3.8480,
+        "lng": 11.5021
+      },
+      "phone": "+237 6 90 03 90 13",
+      "whatsapp": "+237 6 90 03 90 13",
+      "email": "",
+      "hours": {
+        "weekdays": "8h-17h",
+        "saturday": "8h-13h",
+        "sunday": "Fermé"
+      },
+      "description": "Point de vente situé au Carrefour Ahala, centre-ville"
+    },
+    {
+      "id": "foundi",
+      "name": "Foundi, Mol",
+      "address": "Centre commercial",
+      "city": "Yaoundé",
+      "region": "Centre",
+      "coords": {
+        "lat": 3.8480,
+        "lng": 11.5021
+      },
+      "phone": "+237 6 90 03 90 13",
+      "whatsapp": "+237 6 90 03 90 13",
+      "email": "",
+      "hours": {
+        "weekdays": "8h-17h",
+        "saturday": "8h-13h",
+        "sunday": "Fermé"
+      },
+      "description": "Point de vente situé à Foundi, Mol, centre commercial"
+    },
+    {
+      "id": "douala",
+      "name": "Douala",
+      "address": "Face Acep dernier poteau",
+      "city": "Douala",
+      "region": "Littoral",
+      "coords": {
+        "lat": 3.8480,
+        "lng": 11.5021
+      },
+      "phone": "+237 6 90 03 90 13",
+      "whatsapp": "+237 6 90 03 90 13",
+      "email": "",
+      "hours": {
+        "weekdays": "8h-17h",
+        "saturday": "8h-13h",
+        "sunday": "Fermé"
+      },
+      "description": "Point de vente situé à Douala, face Acep dernier poteau"
+    },
+    {
+      "id": "bertoua",
+      "name": "Bertoua",
+      "address": "Centre-ville",
+      "city": "Bertoua",
+      "region": "Est",
+      "coords": {
+        "lat": 3.8480,
+        "lng": 11.5021
+      },
+      "phone": "+237 6 90 03 90 13",
+      "whatsapp": "+237 6 90 03 90 13",
+      "email": "",
+      "hours": {
+        "weekdays": "8h-17h",
+        "saturday": "8h-13h",
+        "sunday": "Fermé"
+      },
+      "description": "Point de vente situé à Bertoua, centre-ville"
+    }
+  ]
+}
+
