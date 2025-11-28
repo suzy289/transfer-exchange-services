@@ -59,7 +59,7 @@ export default function SectionHeading({
           transition={{ duration: 0.4 }}
           className={cn('inline-flex', justifyClasses[align])}
         >
-          <span className="bg-yellow-400 text-white px-5 py-2 rounded-full font-bold text-sm shadow-md">
+          <span className="bg-yellow-400 text-gray-900 px-5 py-2 rounded-full font-bold text-sm shadow-md">
             {badgeText}
           </span>
         </motion.div>

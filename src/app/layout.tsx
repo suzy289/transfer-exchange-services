@@ -13,6 +13,11 @@ export const metadata: Metadata = {
   description: 'Services de transfert d\'argent, cartes bancaires UBA et change de devises au Cameroun. Premier Red Point UBA au Cameroun.',
   keywords: 'UBA, transfert d\'argent, cartes bancaires, change devises, Cameroun',
   authors: [{ name: 'Transfer and Exchange Services' }],
+  icons: {
+    icon: '/images/favicon.ico',
+    shortcut: '/images/favicon.ico',
+    apple: '/images/favicon.ico',
+  },
   openGraph: {
     title: 'Transfer and Exchange Services | Premier Red Point UBA Cameroun',
     description: 'Services de transfert d\'argent, cartes bancaires UBA et change de devises au Cameroun',

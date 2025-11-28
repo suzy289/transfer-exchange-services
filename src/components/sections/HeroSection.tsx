@@ -17,7 +17,7 @@ export default function HeroSection() {
   const backgroundImages = [
     '/images/f1.jpg',
     '/images/ub1.jpg',
-    '/images/ub2.jpg',
+    '/images/f.jpg',
   ];
 
   const cardTypes = [
@@ -146,9 +146,9 @@ export default function HeroSection() {
                   src={image}
                   alt={`Background ${index + 1}`}
                   fill
+                  sizes="100vw"
                   className="object-cover"
-                  priority={index === 0}
-                  unoptimized
+                  priority
                   quality={90}
                 />
               </motion.div>
@@ -317,9 +317,9 @@ export default function HeroSection() {
                             src="/images/carte uba.png"
                             alt={card.name}
                             fill
+                            sizes="(max-width: 768px) 100vw, 50vw"
                             className="object-contain"
-                            priority={index === 0}
-                            unoptimized
+                            priority
                             onError={(e) => {
                               // Fallback to jpg if png doesn't exist
                               const target = e.target as HTMLImageElement;
@@ -373,8 +373,8 @@ export default function HeroSection() {
                                 src="/images/carte uba.png"
                                 alt="UBA Card"
                                 fill
+                                sizes="80px"
                                 className="object-contain p-2"
-                                unoptimized
                                 onError={(e) => {
                                   const target = e.target as HTMLImageElement;
                                   if (target.src.includes('.png')) {
@@ -391,8 +391,8 @@ export default function HeroSection() {
                                 src="/images/carte uba.png"
                                 alt="UBA Card"
                                 fill
+                                sizes="(max-width: 768px) 40vw, 200px"
                                 className="object-contain p-3"
-                                unoptimized
                                 onError={(e) => {
                                   const target = e.target as HTMLImageElement;
                                   if (target.src.includes('.png')) {

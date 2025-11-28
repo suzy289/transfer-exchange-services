@@ -6,6 +6,18 @@ interface AnimatedBackgroundProps {
   className?: string;
 }
 
+// Positions fixes pour éviter l'erreur d'hydratation (Math.random() génère des valeurs différentes côté serveur/client)
+const bubblePositions = [
+  { top: '10%', left: '15%' },
+  { top: '25%', left: '75%' },
+  { top: '45%', left: '5%' },
+  { top: '60%', left: '85%' },
+  { top: '75%', left: '25%' },
+  { top: '85%', left: '55%' },
+  { top: '15%', left: '45%' },
+  { top: '55%', left: '35%' },
+];
+
 export default function AnimatedBackground({ className = '' }: AnimatedBackgroundProps) {
   return (
     <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
@@ -52,13 +64,13 @@ export default function AnimatedBackground({ className = '' }: AnimatedBackgroun
       />
 
       {/* Petites bulles flottantes */}
-      {[...Array(8)].map((_, i) => (
+      {bubblePositions.map((pos, i) => (
         <motion.div
           key={i}
           className="absolute w-24 h-24 bg-red-500/20 rounded-full blur-2xl"
           style={{
-            top: `${Math.random() * 100}%`,
-            left: `${Math.random() * 100}%`,
+            top: pos.top,
+            left: pos.left,
           }}
           animate={{
             y: [0, -40, 0],
