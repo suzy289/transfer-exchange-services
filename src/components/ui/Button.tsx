@@ -28,7 +28,7 @@ export default function Button({
   const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed';
   
   const variants = {
-    primary: 'bg-primary text-white hover:bg-primary-dark shadow-lg hover:shadow-xl',
+    primary: 'bg-primary text-white hover:bg-black shadow-lg hover:shadow-xl',
     secondary: 'bg-secondary text-white hover:bg-secondary-light',
     outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-white',
   };

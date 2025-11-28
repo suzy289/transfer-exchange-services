@@ -50,11 +50,11 @@ export default function PricingSection() {
                 </div>
               )}
 
-              <div className="bg-primary text-white p-6 text-center">
+              <div className={`${tier.id === 'premium' ? 'bg-yellow-500' : 'bg-primary'} text-white p-6 text-center`}>
                 <h3 className="text-2xl font-bold mb-2 font-heading">
                   {formatCurrency(tier.price, tier.currency)}
                 </h3>
-                <p className="text-red-100">
+                <p className={tier.id === 'premium' ? 'text-yellow-100' : 'text-red-100'}>
                   {isFrench ? 'Plafond' : 'Limit'}: {formatCurrency(tier.dailyLimit, tier.currency)} /{' '}
                   {isFrench ? 'jour' : 'day'}
                 </p>
@@ -72,7 +72,7 @@ export default function PricingSection() {
                 <Button
                   href="/contact"
                   variant="primary"
-                  className="w-full"
+                  className={`w-full ${tier.id === 'premium' ? 'bg-yellow-500 hover:bg-yellow-600' : ''}`}
                   size="lg"
                 >
                   {isFrench ? 'Commander' : 'Order now'}
