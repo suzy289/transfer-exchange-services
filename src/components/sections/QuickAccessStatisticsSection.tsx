@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CreditCard, Building2, MapPin, Phone, MessageCircle, Mail, ArrowRight } from 'lucide-react';
+import { CreditCard, Building2, MapPin, Phone, MessageCircle, Mail } from 'lucide-react';
 import { formatWhatsAppLink, formatTelLink, formatEmailLink } from '@/lib/utils';
 import { COMPANY_INFO } from '@/lib/constants';
 import { statistics } from '@/data/statistics';
@@ -311,21 +311,6 @@ export default function QuickAccessStatisticsSection() {
                         <p className="text-xs text-gray-600 mb-3 group-hover:text-gray-900 transition-colors line-clamp-2">
                           {link.description}
                         </p>
-
-                        {/* Arrow indicator with animation */}
-                        <motion.div
-                          className="flex items-center text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                          animate={{
-                            x: [0, 5, 0],
-                          }}
-                          transition={{
-                            duration: 1.5,
-                            repeat: Infinity,
-                            repeatDelay: 0.5,
-                          }}
-                        >
-                          <ArrowRight className="w-4 h-4" />
-                        </motion.div>
                       </div>
 
                       {/* Bottom accent line with wave effect */}
@@ -369,7 +354,7 @@ export default function QuickAccessStatisticsSection() {
               className="mb-8"
             />
 
-            <div className="grid grid-cols-2 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 gap-3 xs:gap-4 sm:gap-5 md:gap-6">
               {statistics.map((stat, index) => {
                 const Icon = stat.icon;
                 const isRed = index < 2;
@@ -395,7 +380,7 @@ export default function QuickAccessStatisticsSection() {
                     className="group relative"
                   >
                     {/* Card with varied shapes */}
-                    <div className={`relative h-full bg-white ${shapeClass} p-6 border-2 border-black shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden`}>
+                    <div className={`relative h-full bg-white ${shapeClass} p-3 xs:p-4 sm:p-5 md:p-6 border-2 border-black shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden`}>
                       {/* Dynamic gradient overlay */}
                       <motion.div
                         className={`absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${shapeClass} ${
@@ -430,14 +415,13 @@ export default function QuickAccessStatisticsSection() {
                       />
                       
                       {/* Icon container with varied shapes */}
-                      <div className="relative flex justify-center mb-4">
+                      <div className="relative flex justify-center mb-2 sm:mb-3 md:mb-4">
                         <motion.div
-                          className={`relative w-18 h-18 ${index === 1 ? 'rounded-2xl' : 'rounded-xl'} flex items-center justify-center border-2 shadow-lg group-hover:shadow-xl transition-all duration-300 ${
+                          className={`relative ${index === 1 ? 'rounded-2xl' : 'rounded-xl'} flex items-center justify-center border-2 shadow-lg group-hover:shadow-xl transition-all duration-300 w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 md:w-[4.5rem] md:h-[4.5rem] ${
                             isRed 
                               ? 'bg-primary border-primary' 
                               : 'bg-gray-50 border-black'
                           }`}
-                          style={{ width: '4.5rem', height: '4.5rem' }}
                           whileHover={{ 
                             rotate: [0, -8, 8, -8, 0],
                             scale: [1, 1.25, 1.2, 1.25, 1],
@@ -480,7 +464,7 @@ export default function QuickAccessStatisticsSection() {
                               delay: 0.5,
                             }}
                           />
-                          <Icon className={`w-9 h-9 relative z-10 ${
+                          <Icon className={`w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-9 md:h-9 relative z-10 ${
                             isRed ? 'text-white' : 'text-black'
                           }`} />
                         </motion.div>
@@ -488,14 +472,14 @@ export default function QuickAccessStatisticsSection() {
 
                       {/* Value with explosive animation */}
                       <motion.div
-                        className="text-center mb-2"
+                        className="text-center mb-1 sm:mb-2"
                         initial={{ opacity: 0, scale: 0.5 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.12 + 0.3, type: 'spring', stiffness: 200 }}
                       >
                         <motion.div
-                          className="text-4xl md:text-5xl font-bold text-primary mb-1 font-heading"
+                          className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-0.5 sm:mb-1 font-heading"
                           whileHover={{ scale: 1.15 }}
                           animate={{
                             textShadow: ['0 0 0px rgba(220, 38, 38, 0)', '0 0 10px rgba(220, 38, 38, 0.3)', '0 0 0px rgba(220, 38, 38, 0)'],
@@ -517,14 +501,14 @@ export default function QuickAccessStatisticsSection() {
                         viewport={{ once: true }}
                         transition={{ delay: index * 0.12 + 0.4 }}
                       >
-                        <div className="text-xs md:text-sm text-gray-600 font-semibold group-hover:text-gray-900 transition-colors">
+                        <div className="text-[10px] xs:text-xs sm:text-sm text-gray-600 font-semibold group-hover:text-gray-900 transition-colors leading-tight">
                           {language === 'fr' ? stat.label : stat.labelEn}
                         </div>
                       </motion.div>
 
                       {/* Bottom accent line with pulse */}
                       <motion.div
-                        className={`absolute bottom-0 left-0 right-0 h-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${shapeClass} ${
+                        className={`absolute bottom-0 left-0 right-0 h-1 sm:h-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${shapeClass} ${
                           isRed ? 'bg-primary' : 'bg-black'
                         }`}
                         initial={{ scaleX: 0 }}
