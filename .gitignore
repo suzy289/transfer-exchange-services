@@ -49,3 +49,5 @@ next-env.d.ts
 /public/images/partners/
 
 
+package-lock.json
+package.json
