@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { FileText, Scale, Shield, AlertCircle, CheckCircle, XCircle, Info, ArrowRight } from 'lucide-react';
