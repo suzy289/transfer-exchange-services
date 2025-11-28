@@ -44,8 +44,14 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
   }, []);
 
   const toggleLanguage = useCallback(() => {
-    setLanguage((prev) => (prev === 'fr' ? 'en' : 'fr'));
-  }, [setLanguage]);
+    setLanguageState((prev) => {
+      const newLang = prev === 'fr' ? 'en' : 'fr';
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(STORAGE_KEY, newLang);
+      }
+      return newLang;
+    });
+  }, []);
 
   const value = useMemo(
     () => ({

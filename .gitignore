@@ -48,6 +48,3 @@ next-env.d.ts
 /public/images/testimonials/
 /public/images/partners/
 
-
-package-lock.json
-package.json
