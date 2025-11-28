@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X, ChevronDown, Briefcase, MapPin, Mail, CreditCard, Info } from 'lucide-react';
@@ -10,17 +10,8 @@ import { useLanguage } from '@/context/LanguageContext';
 
 export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
   const { language, setLanguage } = useLanguage();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -34,7 +25,7 @@ export default function Header() {
     },
     {
       href: '/#tarifs',
-      label: language === 'fr' ? 'Nos tarifs' : 'Our pricing',
+      label: language === 'fr' ? 'Tarifs' : 'Pricing',
       external: false,
       icon: CreditCard,
       iconColor: 'text-white',
@@ -48,7 +39,7 @@ export default function Header() {
     },
     {
       href: '/agences',
-      label: language === 'fr' ? 'Nos agences' : 'Our agencies',
+      label: language === 'fr' ? 'Agences' : 'Agencies',
       external: false,
       icon: MapPin,
       iconColor: 'text-white',
@@ -57,30 +48,28 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-primary shadow-lg' : 'bg-primary'
-      }`}
+      className="fixed top-0 left-0 right-0 z-[100] bg-primary shadow-lg"
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          <div className="flex items-center space-x-3">
+      <div className="container mx-auto px-3 sm:px-4">
+        <div className="flex items-center justify-between h-16 sm:h-20">
+          <div className="flex items-center">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="relative w-14 h-14 rounded-full bg-white shadow-lg overflow-hidden ring-2 ring-white/40">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3">
+              <div className="relative w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)] flex-shrink-0">
                 <Image
                   src="/images/logo.png"
                   alt="Transfer and Exchange Services Logo"
                   fill
-                  sizes="56px"
-                  className="object-contain p-1"
+                  sizes="64px"
+                  className="object-contain"
                   priority
                 />
               </div>
-              <div className="hidden md:block">
-                <h1 className="text-white font-bold text-lg font-heading leading-tight">
+              <div>
+                <h1 className="text-white font-bold text-sm sm:text-base md:text-lg font-heading leading-tight whitespace-nowrap">
                   Transfer & Exchange
                 </h1>
-                <p className="text-red-100 text-xs font-medium tracking-wider uppercase">
+                <p className="hidden sm:block text-red-100 text-[10px] sm:text-xs font-medium tracking-wider uppercase">
                   Services SARL
                 </p>
               </div>
@@ -95,7 +84,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="relative flex items-center space-x-2 text-white hover:text-red-200 transition-colors font-medium group"
+                  className="relative flex items-center space-x-2 text-white hover:text-red-200 transition-colors font-medium group whitespace-nowrap"
                 >
                   <Icon className={`w-4 h-4 ${item.iconColor}`} />
                   <span>{item.label}</span>

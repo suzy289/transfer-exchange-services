@@ -2,41 +2,68 @@
 
 import { motion } from 'framer-motion';
 import { services } from '@/data/services';
-import SectionHeading from '@/components/ui/SectionHeading';
-import Image from 'next/image';
+import { useRef, useEffect, useState } from 'react';
 import {
-  Calendar,
-  ArrowRight,
   CreditCard,
-  ClipboardList,
-  PiggyBank,
+  UserPlus,
+  Wallet,
   Smartphone,
-  Coins,
-  Globe2,
-  Briefcase,
-  Zap,
+  BadgeDollarSign,
+  Send,
+  Users,
+  Receipt,
   LucideIcon,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
-import Link from 'next/link';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function ServicesSection() {
   const { language } = useLanguage();
   const isFrench = language === 'fr';
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  const serviceDates = isFrench
-    ? ['Fév 25, 2025', 'Jan 14, 2026', 'Mar 10, 2025', 'Avr 5, 2025', 'Mai 20, 2025', 'Juin 15, 2025', 'Juil 8, 2025']
-    : ['Feb 25, 2025', 'Jan 14, 2026', 'Mar 10, 2025', 'Apr 5, 2025', 'May 20, 2025', 'Jun 15, 2025', 'Jul 8, 2025'];
+  // Défilement automatique
+  useEffect(() => {
+    if (isPaused) return;
+    
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % services.length);
+    }, 3000); // Change toutes les 3 secondes
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  // Scroll vers la carte active
+  useEffect(() => {
+    if (scrollRef.current) {
+      const cardWidth = 320 + 24; // largeur carte + gap
+      scrollRef.current.scrollTo({
+        left: currentIndex * cardWidth,
+        behavior: 'smooth',
+      });
+    }
+  }, [currentIndex]);
+
+  const scrollToCard = (direction: 'prev' | 'next') => {
+    if (direction === 'prev') {
+      setCurrentIndex((prev) => (prev - 1 + services.length) % services.length);
+    } else {
+      setCurrentIndex((prev) => (prev + 1) % services.length);
+    }
+  };
 
   const iconComponents: Record<string, LucideIcon> = {
     'uba-cards': CreditCard,
-    'account-opening': ClipboardList,
-    'deposits-withdrawals': PiggyBank,
-    m2u: Smartphone,
-    'currency-exchange': Coins,
-    'money-transfer': Globe2,
-    'salary-payment': Briefcase,
-    'bill-payment': Zap,
+    'account-opening': UserPlus,
+    'deposits-withdrawals': Wallet,
+    'm2u': Smartphone,
+    'currency-exchange': BadgeDollarSign,
+    'money-transfer': Send,
+    'salary-payment': Users,
+    'bill-payment': Receipt,
   };
 
   return (
@@ -74,179 +101,160 @@ export default function ServicesSection() {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <SectionHeading
-          title={isFrench ? 'Nos services financiers' : 'Our financial services'}
-          subtitle={
-            isFrench
-              ? 'Transfer and Exchange Services vous offre une gamme complète de solutions bancaires et financières'
-              : 'Transfer and Exchange Services provides a comprehensive range of banking and financial solutions'
-          }
-        />
+        {/* En-tête premium */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative mb-16 p-10 rounded-3xl bg-gradient-to-br from-gray-900 via-black to-gray-900 shadow-2xl overflow-hidden"
+        >
+          {/* Effets de lumière */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_rgba(220,38,38,0.2),_transparent_50%)] opacity-70" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_rgba(220,38,38,0.15),_transparent_50%)] opacity-60" />
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-60" />
+          
+          <div className="relative z-10 text-center">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/30 to-primary/10 text-white text-sm font-bold border border-primary/40 shadow-lg shadow-primary/20 backdrop-blur-sm mb-4">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              {isFrench ? 'SERVICES FINANCIERS' : 'FINANCIAL SERVICES'}
+            </span>
+            <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+              {isFrench
+                ? 'Transfer and Exchange Services vous offre une gamme complète de solutions bancaires et financières'
+                : 'Transfer and Exchange Services provides a comprehensive range of banking and financial solutions'}
+            </p>
+          </div>
+        </motion.div>
 
-        <div className="relative -mx-4 flex flex-wrap md:py-14 lg:py-20">
-          {/* Ligne verticale décorée au milieu */}
-          <div className="absolute left-2 top-0 hidden h-full md:left-1/2 md:block -translate-x-1/2">
-            <span className="absolute left-1/2 top-0 h-full w-[2px] bg-gradient-to-b from-gray-300 via-gray-200 to-gray-300 dark:from-[#2D2C4A] dark:via-[#3D3C5A] dark:to-[#2D2C4A] -translate-x-1/2"></span>
+        {/* Horizontal Scroll Cards */}
+        <div 
+          className="relative -mx-4 px-4"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* Boutons de navigation */}
+          <button
+            onClick={() => scrollToCard('prev')}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-gray-200 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 group/btn"
+          >
+            <ChevronLeft className="w-6 h-6 group-hover/btn:scale-110 transition-transform" />
+          </button>
+          <button
+            onClick={() => scrollToCard('next')}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-gray-200 flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 group/btn"
+          >
+            <ChevronRight className="w-6 h-6 group-hover/btn:scale-110 transition-transform" />
+          </button>
+
+          {/* Scroll Container */}
+          <div 
+            ref={scrollRef}
+            className="flex gap-6 overflow-x-auto pb-8 pt-4 snap-x snap-mandatory scrollbar-hide px-8" 
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {services.map((service, index) => {
+              const title = isFrench ? service.title : service.titleEn;
+              const description = isFrench ? service.description : service.descriptionEn;
+              const details = isFrench ? service.details : service.detailsEn;
+              const IconComponent = iconComponents[service.id] || CreditCard;
+              
+              // Couleurs d'icônes variées
+              const iconColors = [
+                'bg-gradient-to-br from-primary to-red-700',
+                'bg-gradient-to-br from-gray-900 to-black',
+                'bg-gradient-to-br from-orange-500 to-amber-600',
+                'bg-gradient-to-br from-blue-600 to-blue-800',
+                'bg-gradient-to-br from-green-600 to-emerald-700',
+                'bg-gradient-to-br from-purple-600 to-violet-800',
+                'bg-gradient-to-br from-pink-600 to-rose-700',
+                'bg-gradient-to-br from-cyan-600 to-teal-700',
+              ];
+              
+              return (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                className="flex-shrink-0 w-[320px] snap-center group"
+              >
+                <div className="relative h-[420px] rounded-[2rem] overflow-hidden bg-white border-2 border-gray-100 hover:border-primary/50 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                  {/* Numéro en grand */}
+                  <div className="absolute -top-4 -right-4 text-[180px] font-black text-gray-100 leading-none select-none pointer-events-none z-0">
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
+                  
+                  {/* Barre colorée en haut */}
+                  <div className={`h-2 w-full ${iconColors[index % iconColors.length]}`} />
+                  
+                  <div className="relative z-10 p-8 h-full flex flex-col">
+                    {/* Icône avec effet */}
+                    <div className="relative mb-6">
+                      <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-2xl scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className={`relative w-16 h-16 rounded-2xl ${iconColors[index % iconColors.length]} flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg`}>
+                        <IconComponent className="w-8 h-8 text-white" />
+                      </div>
+                    </div>
+                    
+                    {/* Titre */}
+                    <h3 className="text-2xl font-bold text-gray-900 font-heading mb-3 group-hover:text-primary transition-colors duration-300">
+                      {title}
+                    </h3>
+                    
+                    {/* Description */}
+                    <p className="text-gray-500 text-sm leading-relaxed mb-6 flex-grow">
+                      {description}
+                    </p>
+                    
+                    {/* Ligne séparatrice */}
+                    <div className="h-px bg-gradient-to-r from-gray-200 via-gray-300 to-transparent mb-4" />
+                    
+                    {/* Détails en tags */}
+                    <div className="flex flex-wrap gap-2">
+                      {details.slice(0, 2).map((detail, idx) => (
+                        <span 
+                          key={idx} 
+                          className="px-3 py-1.5 text-xs font-medium bg-gray-100 text-gray-700 rounded-full hover:bg-primary hover:text-white transition-colors duration-300"
+                        >
+                          {detail.length > 25 ? detail.substring(0, 25) + '...' : detail}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Effet hover overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                </div>
+              </motion.div>
+              );
+            })}
           </div>
           
-          {services.map((service, index) => {
-            const isEven = index % 2 === 0;
-            const title = isFrench ? service.title : service.titleEn;
-            const description = isFrench ? service.description : service.descriptionEn;
-            const details = isFrench ? service.details : service.detailsEn;
-            const IconComponent = iconComponents[service.id] || CreditCard;
-            const showCardLogo = service.id === 'uba-cards';
-            
-            return (
-            <motion.div
-              key={service.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.6 }}
-              className={`w-full md:w-1/2 px-4 mb-12 relative ${isEven ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}
-            >
-              {/* Cercle décoratif sur la ligne */}
-              <div 
-                className="absolute hidden md:block z-20"
-                style={{
-                  left: isEven ? 'calc(100% - 1.5rem)' : '-1.5rem',
-                  top: '1.5rem',
-                }}
-              >
-                {/* Cercle extérieur animé */}
-                <motion.div
-                  className="absolute inset-0 rounded-full border-2 border-primary/30"
-                  style={{ width: '3rem', height: '3rem', margin: '-0.5rem' }}
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.5, 0.8, 0.5],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                />
-                {/* Cercle principal */}
-                <div className="relative w-8 h-8 bg-white rounded-full border-4 border-primary shadow-xl flex items-center justify-center">
-                  <div className="w-3 h-3 bg-primary rounded-full"></div>
-                </div>
-                {/* Cercle intérieur brillant */}
-                <div className="absolute inset-0 w-8 h-8 bg-gradient-to-br from-primary/20 to-transparent rounded-full"></div>
-              </div>
-
-              <div
-                className={`relative h-full bg-white rounded-[2.5rem] shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group border ${
-                  index % 3 === 0
-                    ? 'border-black shadow-gray-300/80'
-                    : 'border-gray-100'
-                } ${isEven ? 'md:mr-auto md:max-w-[85%]' : 'md:ml-auto md:max-w-[85%]'}`}
-              >
-                
-                {/* Header avec date et badge - Inversé selon le côté */}
-                <div className={`p-6 pb-4 border-b border-gray-100 ${isEven ? 'md:bg-gradient-to-l md:from-primary/5' : 'bg-gradient-to-r from-primary/5'} rounded-t-[2.5rem]`}>
-                  <div className={`flex items-center mb-4 ${isEven ? 'md:justify-end' : 'justify-between'}`}>
-                    {isEven ? (
-                      <>
-                        <div className="order-2 md:order-1 md:ml-4 p-3 rounded-2xl bg-white text-black border border-black">
-                          {showCardLogo ? (
-                            <Image
-                              src="/images/carte uba.png"
-                              alt="Carte UBA"
-                              width={40}
-                              height={24}
-                              className="object-contain"
-                              priority
-                            />
-                          ) : (
-                            <IconComponent className="w-8 h-8" />
-                          )}
-                        </div>
-                        <div className="flex items-center space-x-2 text-gray-500 text-sm order-1 md:order-2">
-                          <Calendar className="w-4 h-4" />
-                          <span>{serviceDates[index]}</span>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="flex items-center space-x-2 text-gray-500 text-sm">
-                          <Calendar className="w-4 h-4" />
-                          <span>{serviceDates[index]}</span>
-                        </div>
-                        <div className="p-3 rounded-2xl bg-white text-black border border-black">
-                          {showCardLogo ? (
-                            <Image
-                              src="/images/carte uba.png"
-                              alt="Carte UBA"
-                              width={40}
-                              height={24}
-                              className="object-contain"
-                              priority
-                            />
-                          ) : (
-                            <IconComponent className="w-8 h-8" />
-                          )}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                  <h3 className={`text-xl font-bold mb-2 text-gray-800 font-heading group-hover:text-primary transition-colors ${isEven ? 'md:text-right' : ''}`}>
-                    {title}
-                  </h3>
-                </div>
-
-                {/* Contenu - Inversé selon le côté */}
-                <div className={`p-6 pt-4 ${isEven ? 'md:bg-gradient-to-l md:from-gray-50/50' : 'bg-gradient-to-r from-gray-50/50'} rounded-b-[2.5rem]`}>
-                  <p className={`text-gray-600 mb-4 leading-relaxed ${isEven ? 'md:text-right' : ''}`}>
-                    {description}
-                  </p>
-
-                  {/* Détails - Inversé */}
-                  <ul className={`space-y-2 mb-6 ${isEven ? 'md:text-right' : ''}`}>
-                    {details.slice(0, 2).map((detail, idx) => (
-                      <li key={idx} className={`flex items-start text-sm text-gray-600 ${isEven ? 'md:flex-row-reverse md:justify-end' : ''}`}>
-                        <span className={`text-primary ${isEven ? 'md:ml-2 md:mr-0' : 'mr-2'} mt-1 flex-shrink-0`}>
-                          {isEven ? '◉' : '•'}
-                        </span>
-                        <span className={isEven ? 'md:text-right' : ''}>{detail}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {/* Badge ou indicateur - Inversé */}
-                  <div className={`flex items-center gap-3 flex-wrap ${isEven ? 'md:justify-end md:flex-row-reverse' : 'justify-between'}`}>
-                    <span className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold">
-                      {service.category === 'banking' && (isFrench ? 'Banque' : 'Banking')}
-                      {service.category === 'transfer' && (isFrench ? 'Transfert' : 'Transfer')}
-                      {service.category === 'exchange' && (isFrench ? 'Change' : 'Exchange')}
-                      {service.category === 'mobile' && (isFrench ? 'Mobile' : 'Mobile')}
-                    </span>
-                    <Link
-                      href="/contact"
-                      className={`flex items-center text-primary hover:text-primary-dark font-semibold text-sm transition-transform ${isEven ? 'md:flex-row-reverse md:group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`}
-                    >
-                      {isEven ? (
-                        <>
-                          <ArrowRight className="w-4 h-4 mr-1 rotate-180" />
-                          {isFrench ? 'En savoir plus' : 'Learn more'}
-                        </>
-                      ) : (
-                        <>
-                          {isFrench ? 'En savoir plus' : 'Learn more'}
-                          <ArrowRight className="w-4 h-4 ml-1" />
-                        </>
-                      )}
-                    </Link>
-                  </div>
-                </div>
-
-                {/* Effet hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-              </div>
-            </motion.div>
-            );
-          })}
+          {/* Indicateurs de pagination */}
+          <div className="flex justify-center items-center gap-3 mt-6">
+            {services.map((_, index) => (
+              <button 
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`rounded-full transition-all duration-300 ${
+                  index === currentIndex 
+                    ? 'w-10 h-3 bg-primary' 
+                    : 'w-3 h-3 bg-gray-300 hover:bg-gray-400'
+                }`}
+              />
+            ))}
+          </div>
+          
+          {/* Indicateur de progression */}
+          <div className="flex justify-center mt-4">
+            <div className="text-sm text-gray-500 font-medium">
+              <span className="text-primary font-bold">{String(currentIndex + 1).padStart(2, '0')}</span>
+              <span className="mx-2">/</span>
+              <span>{String(services.length).padStart(2, '0')}</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

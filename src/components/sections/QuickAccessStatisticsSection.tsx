@@ -171,14 +171,14 @@ export default function QuickAccessStatisticsSection() {
       </div>
 
       <div className="container mx-auto px-4 relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
           {/* Left Side - Quick Access - Explosive Design */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, type: 'spring', stiffness: 100 }}
-            className="lg:pr-8"
+            className="lg:pr-8 flex flex-col"
           >
             <SectionHeading
               title={language === 'fr' ? 'Accès rapide' : 'Quick access'}
@@ -190,7 +190,7 @@ export default function QuickAccessStatisticsSection() {
               className="mb-8"
             />
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
               {quickLinks.map((link, index) => {
                 const Icon = link.icon;
                 return (
@@ -211,8 +211,8 @@ export default function QuickAccessStatisticsSection() {
                     whileHover={{ y: -6, scale: 1.02 }}
                     className="group relative block"
                   >
-                    {/* Card design moderne */}
-                    <div className={`relative h-full rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden flex items-center gap-3 sm:gap-4 ${
+                    {/* Card design moderne - vertical layout */}
+                    <div className={`relative h-full rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden flex flex-col items-center text-center ${
                       link.isRed 
                         ? 'bg-gradient-to-br from-primary via-primary to-red-700' 
                         : 'bg-white border-2 border-gray-200 hover:border-black'
@@ -226,40 +226,27 @@ export default function QuickAccessStatisticsSection() {
                         </div>
                       )}
                       
-                      {/* Icon container */}
-                      <div className={`relative flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${
+                      {/* Icon container - au dessus */}
+                      <div className={`relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 mb-3 ${
                         link.isRed 
                           ? 'bg-white/20 backdrop-blur-sm' 
                           : 'bg-black'
                       }`}>
-                        <Icon className="w-5 h-5 sm:w-5.5 sm:h-5.5 md:w-6 md:h-6 text-white" />
+                        <Icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white" />
                       </div>
 
-                      {/* Content */}
-                      <div className="relative z-10 flex-1 min-w-0">
-                        <h3 className={`text-sm sm:text-base md:text-lg font-bold font-heading mb-0.5 sm:mb-1 truncate ${
+                      {/* Content - en bas */}
+                      <div className="relative z-10 flex-1">
+                        <h3 className={`text-sm sm:text-base md:text-lg font-bold font-heading mb-1 ${
                           link.isRed ? 'text-white' : 'text-black'
                         }`}>
                           {link.title}
                         </h3>
                         <p className={`text-xs sm:text-sm leading-snug line-clamp-2 ${
-                          link.isRed ? 'text-white' : 'text-gray-700'
+                          link.isRed ? 'text-white/80' : 'text-gray-600'
                         }`}>
                           {link.description}
                         </p>
-                      </div>
-
-                      {/* Arrow indicator */}
-                      <div className={`flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center transition-all duration-300 group-hover:translate-x-1 ${
-                        link.isRed 
-                          ? 'bg-white/30' 
-                          : 'bg-gray-200 group-hover:bg-black'
-                      }`}>
-                        <svg className={`w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 transition-colors ${
-                          link.isRed ? 'text-white' : 'text-gray-700 group-hover:text-white'
-                        }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
                       </div>
 
                       {/* Bottom accent for white cards */}
@@ -279,7 +266,7 @@ export default function QuickAccessStatisticsSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, type: 'spring', stiffness: 100 }}
-            className="lg:pl-8"
+            className="lg:pl-8 flex flex-col"
           >
             <SectionHeading
               title={language === 'fr' ? 'Nos statistiques' : 'Our statistics'}
@@ -291,7 +278,7 @@ export default function QuickAccessStatisticsSection() {
               className="mb-8"
             />
 
-            <div className="grid grid-cols-2 gap-3 xs:gap-4 sm:gap-5 md:gap-6">
+            <div className="grid grid-cols-2 gap-3 xs:gap-4 sm:gap-5 md:gap-6 flex-1">
               {statistics.map((stat, index) => {
                 const Icon = stat.icon;
                 const isRed = index < 2;

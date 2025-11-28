@@ -135,3 +135,17 @@ html {
   background-repeat: repeat;
   opacity: 0.4;
 }
+
+/* Shimmer animation for premium card */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}

@@ -35,24 +35,44 @@ export default function FounderSection() {
           }
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
-          {/* Image */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+          {/* Image + Valeurs */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative"
+            className="flex flex-col"
           >
-            <div className="relative w-full h-[500px] md:h-[600px] rounded-2xl overflow-hidden shadow-xl">
+            <div className="relative w-full flex-1 min-h-[400px] lg:min-h-[480px] rounded-t-2xl overflow-hidden shadow-2xl">
               <Image
                 src="/images/DJI_20251127124658_0172_D_traite.jpg"
                 alt={isFrench ? 'Dr Tcheutchoua Christophe' : 'Dr Tcheutchoua Christophe'}
                 fill
-                sizes="(max-width: 1024px) 100vw, 60vw"
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover"
                 priority
               />
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+            </div>
+            
+            {/* Valeurs sous l'image - compact */}
+            <div className="bg-gradient-to-r from-gray-900 via-black to-gray-900 rounded-b-2xl px-4 py-3">
+              <div className="flex flex-wrap items-center justify-center gap-2">
+                {(isFrench ? founder.values : founder.valuesEn).map((value, index) => (
+                  <motion.div 
+                    key={index} 
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.05 }}
+                    className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1.5 border border-white/10 hover:bg-primary/20 hover:border-primary/40 transition-all duration-300"
+                  >
+                    <CheckCircle className="w-3.5 h-3.5 text-primary" />
+                    <span className="text-white text-xs font-medium">{value}</span>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
 
@@ -62,42 +82,28 @@ export default function FounderSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-6"
+            className="flex flex-col justify-center bg-white rounded-2xl p-6 lg:p-8 shadow-xl"
           >
-            <div>
-              <h3 className="text-3xl font-bold mb-2 text-gray-800 font-heading">
+            <div className="mb-6">
+              <h3 className="text-2xl lg:text-3xl font-bold mb-2 text-gray-800 font-heading">
                 {founder.name}
               </h3>
-              <p className="text-lg text-gray-600 mb-4">
+              <p className="text-base lg:text-lg text-gray-600">
                 <strong>{birthDateLabel}</strong> - {isFrench ? founder.title : founder.titleEn}
               </p>
             </div>
 
-            <div className="prose text-gray-700 space-y-4">
+            <div className="prose prose-sm lg:prose text-gray-700 space-y-3">
               {biographyParagraphs.map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
+                <p key={index} className="text-sm lg:text-base leading-relaxed">{paragraph}</p>
               ))}
               {founder.role && (
-                <div className="bg-primary/10 border-l-4 border-primary p-4 rounded-r-lg mt-4">
-                  <p className="text-gray-800 font-medium italic">
+                <div className="bg-primary/10 border-l-4 border-primary p-4 rounded-r-lg">
+                  <p className="text-gray-800 font-medium italic text-sm lg:text-base">
                     {isFrench ? founder.role : founder.roleEn}
                   </p>
                 </div>
               )}
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-3 text-gray-800">
-                {isFrench ? 'Valeurs du groupe REAVEM :' : 'Values of the REAVEM group:'}
-              </h4>
-              <div className="grid grid-cols-2 gap-3">
-                {(isFrench ? founder.values : founder.valuesEn).map((value, index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span className="text-gray-700">{value}</span>
-                  </div>
-                ))}
-              </div>
             </div>
           </motion.div>
         </div>

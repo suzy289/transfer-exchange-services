@@ -43,8 +43,6 @@ export default function SectionHeading({
   const titleColor = theme === 'dark' ? 'text-white' : 'text-gray-900';
   const subtitleColor = theme === 'dark' ? 'text-white/80' : 'text-gray-600';
 
-  const badgeText = eyebrow ?? title;
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -53,16 +51,18 @@ export default function SectionHeading({
       className={cn('mb-16', className)}
     >
       <div className={cn('space-y-4', alignClasses[align])}>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.4 }}
-          className={cn('inline-flex', justifyClasses[align])}
-        >
-          <span className="bg-yellow-400 text-gray-900 px-5 py-2 rounded-full font-bold text-sm shadow-md">
-            {badgeText}
-          </span>
-        </motion.div>
+        {eyebrow && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4 }}
+            className={cn('inline-flex', justifyClasses[align])}
+          >
+            <span className="bg-yellow-400 text-gray-900 px-5 py-2 rounded-full font-bold text-sm shadow-md">
+              {eyebrow}
+            </span>
+          </motion.div>
+        )}
 
         <h2 className={cn('text-3xl md:text-4xl font-bold leading-tight font-heading', titleColor)}>
           {title}

@@ -7,6 +7,8 @@ import { ArrowRight, Shield, Globe, CreditCard, Crown } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import BackgroundShapes from '@/components/BackgroundShapes';
 import { useLanguage } from '@/context/LanguageContext';
+import { formatWhatsAppLink } from '@/lib/utils';
+import { COMPANY_INFO } from '@/lib/constants';
 
 export default function HeroSection() {
   const { language } = useLanguage();
@@ -126,7 +128,7 @@ export default function HeroSection() {
   return (
     <section
       id="accueil"
-      className="relative min-h-screen flex items-center justify-center bg-white text-gray-800 overflow-hidden"
+      className="relative min-h-[85vh] flex items-center justify-center bg-white text-gray-800 overflow-hidden pb-12"
     >
       {/* Background Image Carousel */}
       <div className="absolute inset-0 min-h-screen" style={{ zIndex: 0 }}>
@@ -272,11 +274,21 @@ export default function HeroSection() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button href="/contact" variant="primary" size="lg">
+                <a 
+                  href={formatWhatsAppLink(
+                    COMPANY_INFO.whatsapp,
+                    language === 'fr' 
+                      ? "Bonjour, je souhaite ouvrir un compte bancaire UBA. Pouvez-vous me donner plus d'informations sur les démarches et documents nécessaires ?"
+                      : "Hello, I would like to open a UBA bank account. Could you provide more information about the process and required documents?"
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
                   {t.primaryCta}
                   <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-                <Button href="#services" variant="outline" size="lg" className="bg-transparent border-black text-white hover:bg-black hover:text-white">
+                </a>
+                <Button href="#services" variant="outline" size="lg" className="bg-black border-white text-white hover:bg-white hover:text-black">
                   {t.secondaryCta}
                 </Button>
               </div>
@@ -314,7 +326,7 @@ export default function HeroSection() {
                         <div className="absolute inset-4 rounded-2xl bg-gradient-to-br from-primary/20 via-primary/10 to-transparent backdrop-blur-sm border border-white/20" />
                         <div className="relative w-full h-full p-6 md:p-8">
                           <Image
-                            src="/images/carte uba.png"
+                            src="/images/recto uba.png"
                             alt={card.name}
                             fill
                             sizes="(max-width: 768px) 100vw, 50vw"
@@ -373,7 +385,7 @@ export default function HeroSection() {
                           <div className="grid grid-cols-2 gap-6 pt-6 border-t-2 border-gray-200 mb-6 items-center">
                             <div className="relative h-32 md:h-40 rounded-xl overflow-hidden border-2 border-white/30 bg-white/10 backdrop-blur-sm flex items-center justify-center">
                               <Image
-                                src="/images/carte uba.png"
+                                src="/images/recto uba.png"
                                 alt="UBA Card"
                                 fill
                                 sizes="(max-width: 768px) 40vw, 200px"
@@ -411,15 +423,20 @@ export default function HeroSection() {
                             </div>
                           </div>
                           
-                          <Button 
-                            href="#tarifs" 
-                            variant="primary" 
-                            size="lg" 
-                            className="w-full mt-2 shadow-lg hover:shadow-xl hover:bg-yellow-400 hover:text-gray-900 transition-all"
+                          <a 
+                            href={formatWhatsAppLink(
+                              COMPANY_INFO.whatsapp,
+                              language === 'fr' 
+                                ? `Bonjour, je souhaite commander une carte UBA ${card.name}. Merci de me donner plus d'informations.`
+                                : `Hello, I would like to order a UBA ${card.name} card. Please provide more information.`
+                            )}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full mt-2 inline-flex items-center justify-center px-6 py-3 bg-primary hover:bg-yellow-400 text-white hover:text-gray-900 font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
                           >
                             {language === 'fr' ? 'Commander cette carte' : 'Order this card'}
                             <ArrowRight className="ml-2 w-5 h-5" />
-                          </Button>
+                          </a>
                         </motion.div>
                       </div>
                     </div>
@@ -430,57 +447,6 @@ export default function HeroSection() {
           </motion.div>
         </div>
       </div>
-
-      {/* Card Type Indicators - Positioned bottom right */}
-      <div className="absolute bottom-6 right-6 flex flex-col items-end space-y-3" style={{ zIndex: 10 }}>
-        <div className="flex space-x-2">
-          {cardTypes.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`px-4 py-2 rounded-full transition-all duration-300 backdrop-blur-lg border ${
-                index === currentSlide
-                  ? 'bg-primary text-white border-primary shadow-lg scale-110'
-                  : 'bg-white/20 text-white border-white/30 hover:bg-yellow-400 hover:text-gray-900 hover:border-yellow-400'
-              }`}
-              aria-label={`${cardTypes[index].name}`}
-            >
-              <span className="text-sm font-semibold">{cardTypes[index].name}</span>
-            </button>
-          ))}
-        </div>
-        <div className="flex space-x-2">
-          {backgroundImages.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentSlide
-                  ? 'bg-white w-8'
-                  : 'bg-white/50 hover:bg-white/75'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.5 }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-        style={{ zIndex: 10 }}
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-2 bg-white/20 backdrop-blur-lg hover:bg-white/30 transition-all duration-300"
-        >
-          <div className="w-1 h-3 bg-white rounded-full" />
-        </motion.div>
-      </motion.div>
     </section>
   );
 }

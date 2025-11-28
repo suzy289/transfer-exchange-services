@@ -2,129 +2,172 @@
 
 import { motion } from 'framer-motion';
 import { agencies } from '@/data/agencies';
-import SectionHeading from '@/components/ui/SectionHeading';
-import Card from '@/components/ui/Card';
-import { Phone, MessageCircle, MapPin, Clock } from 'lucide-react';
+import { Phone, MessageCircle, MapPin, Clock, Navigation } from 'lucide-react';
 import { formatWhatsAppLink, formatTelLink } from '@/lib/utils';
-import Button from '@/components/ui/Button';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function AgenciesSection() {
   const { language } = useLanguage();
   const isFrench = language === 'fr';
 
-  const hoursLabel = (hours: string) => {
-    if (hours.toLowerCase() === 'fermé') {
-      return isFrench ? 'Fermé' : 'Closed';
-    }
-    return hours;
-  };
-
   return (
-    <section id="agences" className="py-20 bg-background-secondary">
-      <div className="container mx-auto px-4">
-        <SectionHeading
-          title={isFrench ? 'Nos points de vente' : 'Our service locations'}
-          subtitle={
-            isFrench ? 'Retrouvez nos agences dans tout le Cameroun' : 'Find our agencies across Cameroon'
-          }
-        />
+    <section className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-24 sm:pt-28 pb-16">
+      <div className="container mx-auto px-4 sm:px-6">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-10 sm:mb-14"
+        >
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold uppercase tracking-wider mb-4">
+            <MapPin className="w-3.5 h-3.5" />
+            {isFrench ? 'Nos points de vente' : 'Our locations'}
+          </span>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 font-heading mb-4">
+            {isFrench ? 'Trouvez votre agence' : 'Find your agency'}
+          </h1>
+          <p className="text-gray-500 max-w-xl mx-auto text-sm sm:text-base">
+            {isFrench
+              ? 'Nos équipes sont à votre disposition dans tout le Cameroun'
+              : 'Our teams are at your service throughout Cameroon'}
+          </p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {/* Agencies Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12">
           {agencies.map((agency, index) => (
             <motion.div
               key={agency.id}
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
+              className="group bg-white rounded-2xl border border-gray-100 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 overflow-hidden"
             >
-              <Card hover className="h-full">
-                <h3 className="text-xl font-semibold mb-2 text-primary font-heading">
+              {/* Header Card */}
+              <div className="bg-gradient-to-r from-primary to-red-600 p-4 sm:p-5">
+                <h3 className="text-lg sm:text-xl font-bold text-white font-heading">
                   {agency.name}
                 </h3>
-                <div className="flex items-start mb-4">
-                  <MapPin className="w-5 h-5 text-gray-400 mr-2 mt-0.5 flex-shrink-0" />
-                  <p className="text-gray-600 text-sm">{agency.address}</p>
-                </div>
-                <p className="text-gray-500 text-sm mb-4">{agency.city}</p>
+                <p className="text-white/80 text-xs sm:text-sm mt-1">{agency.city}</p>
+              </div>
 
-                <div className="space-y-3 mb-4">
-                  <div className="flex items-center">
-                    <Phone className="w-4 h-4 text-primary mr-2 flex-shrink-0" />
-                    <a
-                      href={formatTelLink(agency.phone)}
-                      className="text-gray-700 hover:text-primary text-sm"
-                    >
-                      {agency.phone}
-                    </a>
+              {/* Content */}
+              <div className="p-4 sm:p-5">
+                {/* Address */}
+                <div className="flex items-start gap-3 mb-4 pb-4 border-b border-gray-100">
+                  <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-4 h-4 text-gray-500" />
                   </div>
-                  <div className="flex items-center">
-                    <MessageCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                    <a
-                      href={formatWhatsAppLink(
-                        agency.whatsapp,
-                        isFrench
-                          ? `Bonjour, je souhaite contacter l'agence ${agency.name}`
-                          : `Hello, I would like to contact the ${agency.name} agency`,
-                      )}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-700 hover:text-green-600 text-sm"
-                    >
-                      WhatsApp
-                    </a>
-                  </div>
-                  <div className="flex items-center">
-                    <Clock className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0" />
-                    <span className="text-gray-600 text-sm">
-                      {hoursLabel(agency.hours.weekdays)}
-                    </span>
+                  <p className="text-gray-600 text-sm leading-relaxed pt-1">{agency.address}</p>
+                </div>
+
+                {/* Info Grid */}
+                <div className="space-y-3 mb-5">
+                  <a
+                    href={formatTelLink(agency.phone)}
+                    className="flex items-center gap-3 text-gray-700 hover:text-primary transition-colors group/item"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover/item:bg-primary/20 transition-colors">
+                      <Phone className="w-4 h-4 text-primary" />
+                    </div>
+                    <span className="text-sm font-medium">{agency.phone}</span>
+                  </a>
+
+                  <div className="flex items-center gap-3 text-gray-600">
+                    <div className="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
+                      <Clock className="w-4 h-4 text-gray-500" />
+                    </div>
+                    <span className="text-sm">{agency.hours.weekdays}</span>
                   </div>
                 </div>
 
-                <Button
-                  href={formatWhatsAppLink(
-                    agency.whatsapp,
-                    isFrench
-                      ? `Bonjour, je souhaite contacter l'agence ${agency.name}`
-                      : `Hello, I would like to contact the ${agency.name} agency`,
-                  )}
-                  variant="primary"
-                  size="sm"
-                  className="w-full"
-                >
-                  {isFrench ? 'Contacter cette agence' : 'Contact this agency'}
-                </Button>
-              </Card>
+                {/* Actions */}
+                <div className="flex gap-2">
+                  <a
+                    href={formatTelLink(agency.phone)}
+                    className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium transition-colors"
+                  >
+                    <Phone className="w-4 h-4" />
+                    <span className="hidden xs:inline">{isFrench ? 'Appeler' : 'Call'}</span>
+                  </a>
+                  <a
+                    href={formatWhatsAppLink(
+                      agency.whatsapp,
+                      isFrench
+                        ? `Bonjour, je souhaite contacter l'agence ${agency.name}`
+                        : `Hello, I would like to contact the ${agency.name} agency`
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-green-600 hover:bg-green-500 text-white text-sm font-medium transition-colors"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    WhatsApp
+                  </a>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Map Placeholder */}
+        {/* Map Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="bg-white rounded-2xl border border-gray-100 overflow-hidden"
         >
-          <Card>
-            <h3 className="text-2xl font-semibold mb-6 text-center text-gray-800 font-heading">
-              {isFrench ? 'Localisation sur la carte' : 'Map location'}
-            </h3>
-            <div className="bg-gray-200 rounded-2xl h-64 flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <MapPin className="w-16 h-16 mx-auto mb-4" />
-                <p>{isFrench ? 'Carte interactive des agences' : 'Interactive map of agencies'}</p>
-                <p className="text-sm mt-2">
-                  {isFrench ? '(Google Maps - À intégrer avec API Key)' : '(Google Maps – to be integrated with API key)'}
-                </p>
+          <div className="p-4 sm:p-6 border-b border-gray-100">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 font-heading flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Navigation className="w-5 h-5 text-primary" />
               </div>
+              {isFrench ? 'Localisation' : 'Location'}
+            </h2>
+          </div>
+          <div className="bg-gradient-to-br from-gray-100 to-gray-50 h-48 sm:h-64 flex items-center justify-center">
+            <div className="text-center px-4">
+              <div className="w-14 h-14 rounded-2xl bg-white shadow-lg flex items-center justify-center mx-auto mb-4">
+                <MapPin className="w-7 h-7 text-primary" />
+              </div>
+              <p className="text-gray-600 font-medium text-sm sm:text-base">
+                {isFrench ? 'Carte interactive' : 'Interactive map'}
+              </p>
+              <p className="text-gray-400 text-xs sm:text-sm mt-1">
+                {isFrench ? 'Bientôt disponible' : 'Coming soon'}
+              </p>
             </div>
-          </Card>
+          </div>
+        </motion.div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="mt-10 sm:mt-14 text-center"
+        >
+          <p className="text-gray-500 text-sm mb-4">
+            {isFrench
+              ? "Besoin d'aide pour trouver l'agence la plus proche ?"
+              : 'Need help finding the nearest agency?'}
+          </p>
+          <a
+            href={formatWhatsAppLink(
+              '+237690039013',
+              isFrench
+                ? 'Bonjour, je cherche l\'agence la plus proche de ma position.'
+                : 'Hello, I\'m looking for the nearest agency to my location.'
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors"
+          >
+            <MessageCircle className="w-5 h-5" />
+            {isFrench ? 'Contactez-nous' : 'Contact us'}
+          </a>
         </motion.div>
       </div>
     </section>
   );
 }
-
-
