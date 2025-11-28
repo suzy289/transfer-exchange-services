@@ -8,8 +8,11 @@ import Button from '@/components/ui/Button';
 import { Mail, Phone, MessageCircle } from 'lucide-react';
 import { COMPANY_INFO } from '@/lib/constants';
 import { formatWhatsAppLink, formatTelLink, formatEmailLink } from '@/lib/utils';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function ContactSection() {
+  const { language } = useLanguage();
+  const isFrench = language === 'fr';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -53,8 +56,10 @@ export default function ContactSection() {
     <section id="contact" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <SectionHeading
-          title="Contactez-nous"
-          subtitle="Une question ? Notre équipe est à votre écoute"
+          title={isFrench ? 'Contactez-nous' : 'Contact us'}
+          subtitle={
+            isFrench ? 'Une question ? Notre équipe est à votre écoute' : 'Any questions? Our team is here to help'
+          }
         />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -70,7 +75,7 @@ export default function ContactSection() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-gray-700 mb-2 font-medium">
-                      Nom complet *
+                      {isFrench ? 'Nom complet *' : 'Full name *'}
                     </label>
                     <input
                       type="text"
@@ -79,12 +84,12 @@ export default function ContactSection() {
                       onChange={handleChange}
                       required
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                      placeholder="Votre nom"
+                      placeholder={isFrench ? 'Votre nom' : 'Your name'}
                     />
                   </div>
                   <div>
                     <label className="block text-gray-700 mb-2 font-medium">
-                      Téléphone *
+                      {isFrench ? 'Téléphone *' : 'Phone number *'}
                     </label>
                     <input
                       type="tel"
@@ -109,13 +114,13 @@ export default function ContactSection() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="votre@email.com"
+                      placeholder={isFrench ? 'votre@email.com' : 'your@email.com'}
                   />
                 </div>
 
                 <div>
                   <label className="block text-gray-700 mb-2 font-medium">
-                    Sujet *
+                    {isFrench ? 'Sujet *' : 'Subject *'}
                   </label>
                   <select
                     name="subject"
@@ -124,17 +129,17 @@ export default function ContactSection() {
                     required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   >
-                    <option value="">Sélectionnez un sujet</option>
-                    <option value="information">Information générale</option>
-                    <option value="service">Service client</option>
-                    <option value="partnership">Partnership</option>
-                    <option value="other">Autre</option>
+                    <option value="">{isFrench ? 'Sélectionnez un sujet' : 'Select a subject'}</option>
+                    <option value="information">{isFrench ? 'Information générale' : 'General info'}</option>
+                    <option value="service">{isFrench ? 'Service client' : 'Customer service'}</option>
+                    <option value="partnership">{isFrench ? 'Partenariat' : 'Partnership'}</option>
+                    <option value="other">{isFrench ? 'Autre' : 'Other'}</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-gray-700 mb-2 font-medium">
-                    Message *
+                    {isFrench ? 'Message *' : 'Message *'}
                   </label>
                   <textarea
                     name="message"
@@ -143,7 +148,7 @@ export default function ContactSection() {
                     required
                     rows={5}
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                    placeholder="Votre message"
+                    placeholder={isFrench ? 'Votre message' : 'Your message'}
                   />
                 </div>
 
@@ -157,19 +162,23 @@ export default function ContactSection() {
                     className="mt-1 mr-2"
                   />
                   <label className="text-sm text-gray-600">
-                    J'accepte que mes données soient utilisées pour me contacter *
+                    {isFrench
+                      ? "J'accepte que mes données soient utilisées pour me contacter *"
+                      : 'I agree that my data will be used to contact me *'}
                   </label>
                 </div>
 
                 {submitStatus === 'success' && (
                   <div className="bg-green-100 text-green-800 px-4 py-3 rounded-lg">
-                    Message envoyé avec succès ! Nous vous répondrons sous peu.
+                    {isFrench
+                      ? 'Message envoyé avec succès ! Nous vous répondrons sous peu.'
+                      : 'Message sent successfully! We will get back to you shortly.'}
                   </div>
                 )}
 
                 {submitStatus === 'error' && (
                   <div className="bg-red-100 text-red-800 px-4 py-3 rounded-lg">
-                    Une erreur est survenue. Veuillez réessayer.
+                    {isFrench ? 'Une erreur est survenue. Veuillez réessayer.' : 'An error occurred. Please try again.'}
                   </div>
                 )}
 
@@ -180,7 +189,7 @@ export default function ContactSection() {
                   className="w-full"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? 'Envoi en cours...' : 'Envoyer le message'}
+                  {isSubmitting ? (isFrench ? 'Envoi en cours...' : 'Sending...') : isFrench ? 'Envoyer le message' : 'Send message'}
                 </Button>
               </form>
             </Card>
@@ -196,7 +205,7 @@ export default function ContactSection() {
           >
             <Card>
               <h3 className="text-2xl font-semibold mb-6 text-gray-800 font-heading">
-                Coordonnées principales
+                {isFrench ? 'Coordonnées principales' : 'Main contact details'}
               </h3>
               <div className="space-y-4">
                 <div className="flex items-start">
@@ -215,7 +224,9 @@ export default function ContactSection() {
                 <div className="flex items-start">
                   <Phone className="w-6 h-6 text-primary mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <p className="font-semibold text-gray-800">Téléphone</p>
+                    <p className="font-semibold text-gray-800">
+                      {isFrench ? 'Téléphone' : 'Phone'}
+                    </p>
                     <a
                       href={formatTelLink(COMPANY_INFO.phone)}
                       className="text-gray-600 hover:text-primary"
@@ -232,7 +243,7 @@ export default function ContactSection() {
                     <a
                       href={formatWhatsAppLink(
                         COMPANY_INFO.whatsapp,
-                        'Bonjour, je souhaite obtenir des informations.'
+                        isFrench ? 'Bonjour, je souhaite obtenir des informations.' : 'Hello, I would like more information.',
                       )}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -247,7 +258,7 @@ export default function ContactSection() {
 
             <Card className="bg-primary/5">
               <h4 className="text-lg font-semibold mb-3 text-primary font-heading">
-                Contact du Fondateur
+                {isFrench ? 'Contact du fondateur' : 'Founder contact'}
               </h4>
               <p className="text-gray-700 mb-2 font-medium">
                 {COMPANY_INFO.founder.name}

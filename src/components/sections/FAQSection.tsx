@@ -5,8 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { faqs } from '@/data/faq';
 import SectionHeading from '@/components/ui/SectionHeading';
 import { ChevronDown } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function FAQSection() {
+  const { language } = useLanguage();
+  const isFrench = language === 'fr';
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
@@ -17,8 +20,10 @@ export default function FAQSection() {
     <section id="faq" className="py-20 bg-background-secondary">
       <div className="container mx-auto px-4">
         <SectionHeading
-          title="Questions Fréquentes"
-          subtitle="Trouvez les réponses aux questions les plus courantes"
+          title={isFrench ? 'Questions fréquentes' : 'Frequently asked questions'}
+          subtitle={
+            isFrench ? 'Trouvez les réponses aux questions les plus courantes' : 'Find answers to common questions'
+          }
         />
 
         <div className="max-w-3xl mx-auto space-y-4">
@@ -36,7 +41,7 @@ export default function FAQSection() {
                   className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
                 >
                   <span className="font-semibold text-gray-800 pr-4">
-                    {faq.question}
+                    {isFrench ? faq.question : faq.questionEn}
                   </span>
                   <ChevronDown
                     className={`w-5 h-5 text-primary flex-shrink-0 transition-transform ${
@@ -54,7 +59,7 @@ export default function FAQSection() {
                       className="overflow-hidden"
                     >
                       <div className="px-6 py-4 text-gray-700 border-t border-gray-200">
-                        {faq.answer}
+                        {isFrench ? faq.answer : faq.answerEn}
                       </div>
                     </motion.div>
                   )}

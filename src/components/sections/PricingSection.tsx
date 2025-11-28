@@ -6,14 +6,22 @@ import SectionHeading from '@/components/ui/SectionHeading';
 import Button from '@/components/ui/Button';
 import { formatCurrency } from '@/lib/utils';
 import { Check, Star } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function PricingSection() {
+  const { language } = useLanguage();
+  const isFrench = language === 'fr';
+
   return (
     <section id="tarifs" className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <SectionHeading
-          title="Tarifs des Cartes Bancaires"
-          subtitle="Choisissez la carte qui correspond à vos besoins"
+          title={isFrench ? 'Tarifs des cartes bancaires' : 'Bank card pricing'}
+          subtitle={
+            isFrench
+              ? 'Choisissez la carte qui correspond à vos besoins'
+              : 'Choose the card that matches your needs'
+          }
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -33,7 +41,7 @@ export default function PricingSection() {
               {tier.popular && (
                 <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold flex items-center">
                   <Star className="w-4 h-4 mr-1" />
-                  Populaire
+                  {isFrench ? 'Populaire' : 'Popular'}
                 </div>
               )}
               {tier.badge === 'gold' && (
@@ -47,13 +55,14 @@ export default function PricingSection() {
                   {formatCurrency(tier.price, tier.currency)}
                 </h3>
                 <p className="text-red-100">
-                  Plafond: {formatCurrency(tier.dailyLimit, tier.currency)} / jour
+                  {isFrench ? 'Plafond' : 'Limit'}: {formatCurrency(tier.dailyLimit, tier.currency)} /{' '}
+                  {isFrench ? 'jour' : 'day'}
                 </p>
               </div>
 
               <div className="p-6">
                 <ul className="space-y-3 mb-6">
-                  {tier.features.map((feature, featureIndex) => (
+                  {(isFrench ? tier.features : tier.featuresEn).map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-center">
                       <Check className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
                       <span className="text-gray-700">{feature}</span>
@@ -61,12 +70,12 @@ export default function PricingSection() {
                   ))}
                 </ul>
                 <Button
-                  href="#contact"
+                  href="/contact"
                   variant="primary"
                   className="w-full"
                   size="lg"
                 >
-                  Commander
+                  {isFrench ? 'Commander' : 'Order now'}
                 </Button>
               </div>
             </motion.div>

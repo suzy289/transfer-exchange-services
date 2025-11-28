@@ -7,14 +7,27 @@ import Card from '@/components/ui/Card';
 import { Phone, MessageCircle, MapPin, Clock } from 'lucide-react';
 import { formatWhatsAppLink, formatTelLink } from '@/lib/utils';
 import Button from '@/components/ui/Button';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function AgenciesSection() {
+  const { language } = useLanguage();
+  const isFrench = language === 'fr';
+
+  const hoursLabel = (hours: string) => {
+    if (hours.toLowerCase() === 'fermé') {
+      return isFrench ? 'Fermé' : 'Closed';
+    }
+    return hours;
+  };
+
   return (
     <section id="agences" className="py-20 bg-background-secondary">
       <div className="container mx-auto px-4">
         <SectionHeading
-          title="Nos Points de Vente"
-          subtitle="Retrouvez nos agences dans tout le Cameroun"
+          title={isFrench ? 'Nos points de vente' : 'Our service locations'}
+          subtitle={
+            isFrench ? 'Retrouvez nos agences dans tout le Cameroun' : 'Find our agencies across Cameroon'
+          }
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -51,7 +64,9 @@ export default function AgenciesSection() {
                     <a
                       href={formatWhatsAppLink(
                         agency.whatsapp,
-                        `Bonjour, je souhaite contacter l'agence ${agency.name}`
+                        isFrench
+                          ? `Bonjour, je souhaite contacter l'agence ${agency.name}`
+                          : `Hello, I would like to contact the ${agency.name} agency`,
                       )}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -63,7 +78,7 @@ export default function AgenciesSection() {
                   <div className="flex items-center">
                     <Clock className="w-4 h-4 text-gray-400 mr-2 flex-shrink-0" />
                     <span className="text-gray-600 text-sm">
-                      {agency.hours.weekdays}
+                      {hoursLabel(agency.hours.weekdays)}
                     </span>
                   </div>
                 </div>
@@ -71,13 +86,15 @@ export default function AgenciesSection() {
                 <Button
                   href={formatWhatsAppLink(
                     agency.whatsapp,
-                    `Bonjour, je souhaite contacter l'agence ${agency.name}`
+                    isFrench
+                      ? `Bonjour, je souhaite contacter l'agence ${agency.name}`
+                      : `Hello, I would like to contact the ${agency.name} agency`,
                   )}
                   variant="primary"
                   size="sm"
                   className="w-full"
                 >
-                  Contacter cette agence
+                  {isFrench ? 'Contacter cette agence' : 'Contact this agency'}
                 </Button>
               </Card>
             </motion.div>
@@ -92,14 +109,14 @@ export default function AgenciesSection() {
         >
           <Card>
             <h3 className="text-2xl font-semibold mb-6 text-center text-gray-800 font-heading">
-              Localisation sur la carte
+              {isFrench ? 'Localisation sur la carte' : 'Map location'}
             </h3>
             <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
               <div className="text-center text-gray-500">
                 <MapPin className="w-16 h-16 mx-auto mb-4" />
-                <p>Carte interactive des agences</p>
+                <p>{isFrench ? 'Carte interactive des agences' : 'Interactive map of agencies'}</p>
                 <p className="text-sm mt-2">
-                  (Google Maps - À intégrer avec API Key)
+                  {isFrench ? '(Google Maps - À intégrer avec API Key)' : '(Google Maps – to be integrated with API key)'}
                 </p>
               </div>
             </div>

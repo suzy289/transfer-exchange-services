@@ -3,27 +3,84 @@
 import { motion } from 'framer-motion';
 import { services } from '@/data/services';
 import SectionHeading from '@/components/ui/SectionHeading';
-import { Calendar, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import {
+  Calendar,
+  ArrowRight,
+  CreditCard,
+  ClipboardList,
+  PiggyBank,
+  Smartphone,
+  Coins,
+  Globe2,
+  Briefcase,
+  Zap,
+  LucideIcon,
+} from 'lucide-react';
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function ServicesSection() {
-  // Dates fictives pour chaque service (à adapter selon vos besoins)
-  const serviceDates = [
-    'Fév 25, 2025',
-    'Jan 14, 2026',
-    'Mar 10, 2025',
-    'Avr 5, 2025',
-    'Mai 20, 2025',
-    'Juin 15, 2025',
-    'Juil 8, 2025',
-  ];
+  const { language } = useLanguage();
+  const isFrench = language === 'fr';
+
+  const serviceDates = isFrench
+    ? ['Fév 25, 2025', 'Jan 14, 2026', 'Mar 10, 2025', 'Avr 5, 2025', 'Mai 20, 2025', 'Juin 15, 2025', 'Juil 8, 2025']
+    : ['Feb 25, 2025', 'Jan 14, 2026', 'Mar 10, 2025', 'Apr 5, 2025', 'May 20, 2025', 'Jun 15, 2025', 'Jul 8, 2025'];
+
+  const iconComponents: Record<string, LucideIcon> = {
+    'uba-cards': CreditCard,
+    'account-opening': ClipboardList,
+    'deposits-withdrawals': PiggyBank,
+    m2u: Smartphone,
+    'currency-exchange': Coins,
+    'money-transfer': Globe2,
+    'salary-payment': Briefcase,
+    'bill-payment': Zap,
+  };
 
   return (
-    <section id="services" className="py-20 bg-white relative">
-      <div className="container mx-auto px-4">
+    <section id="services" className="py-20 bg-white relative overflow-hidden">
+      {/* Background artistic shapes */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50 to-white" />
+
+        <div className="absolute -top-16 -right-24 w-[420px] h-[420px] bg-gradient-to-br from-primary/15 via-primary/5 to-transparent blur-3xl" />
+        <div className="absolute top-1/3 -left-24 w-[360px] h-[360px] bg-gradient-to-tl from-primary/10 via-primary/5 to-transparent blur-2xl" />
+
+        <div
+          className="absolute left-1/4 top-0 w-[360px] h-[280px] opacity-40 rotate-6 bg-primary/20"
+          style={{
+            clipPath: 'polygon(0% 0%, 80% 10%, 100% 60%, 15% 100%)',
+          }}
+        />
+        <div
+          className="absolute right-0 bottom-10 w-[420px] h-[300px] opacity-30 -rotate-6 bg-gradient-to-br from-primary/30 to-transparent"
+          style={{
+            clipPath: 'polygon(10% 0%, 100% 10%, 85% 100%, 0% 90%)',
+          }}
+        />
+
+        <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
+        <div className="absolute inset-0 opacity-20">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                'repeating-linear-gradient(120deg, rgba(220,38,38,0.12), rgba(220,38,38,0.12) 2px, transparent 2px, transparent 16px)',
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <SectionHeading
-          title="Nos Services Financiers"
-          subtitle="Transfer and Exchange Services vous offre une gamme complète de solutions bancaires et financières"
+          title={isFrench ? 'Nos services financiers' : 'Our financial services'}
+          subtitle={
+            isFrench
+              ? 'Transfer and Exchange Services vous offre une gamme complète de solutions bancaires et financières'
+              : 'Transfer and Exchange Services provides a comprehensive range of banking and financial solutions'
+          }
         />
 
         <div className="relative -mx-4 flex flex-wrap md:py-14 lg:py-20">
@@ -34,6 +91,11 @@ export default function ServicesSection() {
           
           {services.map((service, index) => {
             const isEven = index % 2 === 0;
+            const title = isFrench ? service.title : service.titleEn;
+            const description = isFrench ? service.description : service.descriptionEn;
+            const details = isFrench ? service.details : service.detailsEn;
+            const IconComponent = iconComponents[service.id] || CreditCard;
+            const showCardLogo = service.id === 'uba-cards';
             
             return (
             <motion.div
@@ -74,14 +136,33 @@ export default function ServicesSection() {
                 <div className="absolute inset-0 w-8 h-8 bg-gradient-to-br from-primary/20 to-transparent rounded-full"></div>
               </div>
 
-              <div className={`relative h-full bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group border border-gray-100 ${isEven ? 'md:mr-auto md:max-w-[85%]' : 'md:ml-auto md:max-w-[85%]'}`}>
+              <div
+                className={`relative h-full bg-white rounded-[2.5rem] shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group border ${
+                  index % 3 === 0
+                    ? 'border-black shadow-gray-300/80'
+                    : 'border-gray-100'
+                } ${isEven ? 'md:mr-auto md:max-w-[85%]' : 'md:ml-auto md:max-w-[85%]'}`}
+              >
                 
                 {/* Header avec date et badge - Inversé selon le côté */}
-                <div className={`p-6 pb-4 border-b border-gray-100 ${isEven ? 'md:bg-gradient-to-l md:from-primary/5' : 'bg-gradient-to-r from-primary/5'}`}>
+                <div className={`p-6 pb-4 border-b border-gray-100 ${isEven ? 'md:bg-gradient-to-l md:from-primary/5' : 'bg-gradient-to-r from-primary/5'} rounded-t-[2.5rem]`}>
                   <div className={`flex items-center mb-4 ${isEven ? 'md:justify-end' : 'justify-between'}`}>
                     {isEven ? (
                       <>
-                        <div className="text-4xl order-2 md:order-1 md:ml-4">{service.icon}</div>
+                        <div className="order-2 md:order-1 md:ml-4 p-3 rounded-2xl bg-white text-black border border-black">
+                          {showCardLogo ? (
+                            <Image
+                              src="/images/carte uba.png"
+                              alt="Carte UBA"
+                              width={40}
+                              height={24}
+                              className="object-contain"
+                              priority
+                            />
+                          ) : (
+                            <IconComponent className="w-8 h-8" />
+                          )}
+                        </div>
                         <div className="flex items-center space-x-2 text-gray-500 text-sm order-1 md:order-2">
                           <Calendar className="w-4 h-4" />
                           <span>{serviceDates[index]}</span>
@@ -93,24 +174,37 @@ export default function ServicesSection() {
                           <Calendar className="w-4 h-4" />
                           <span>{serviceDates[index]}</span>
                         </div>
-                        <div className="text-4xl">{service.icon}</div>
+                        <div className="p-3 rounded-2xl bg-white text-black border border-black">
+                          {showCardLogo ? (
+                            <Image
+                              src="/images/carte uba.png"
+                              alt="Carte UBA"
+                              width={40}
+                              height={24}
+                              className="object-contain"
+                              priority
+                            />
+                          ) : (
+                            <IconComponent className="w-8 h-8" />
+                          )}
+                        </div>
                       </>
                     )}
                   </div>
                   <h3 className={`text-xl font-bold mb-2 text-gray-800 font-heading group-hover:text-primary transition-colors ${isEven ? 'md:text-right' : ''}`}>
-                    {service.title}
+                    {title}
                   </h3>
                 </div>
 
                 {/* Contenu - Inversé selon le côté */}
-                <div className={`p-6 pt-4 ${isEven ? 'md:bg-gradient-to-l md:from-gray-50/50' : 'bg-gradient-to-r from-gray-50/50'}`}>
+                <div className={`p-6 pt-4 ${isEven ? 'md:bg-gradient-to-l md:from-gray-50/50' : 'bg-gradient-to-r from-gray-50/50'} rounded-b-[2.5rem]`}>
                   <p className={`text-gray-600 mb-4 leading-relaxed ${isEven ? 'md:text-right' : ''}`}>
-                    {service.description}
+                    {description}
                   </p>
 
                   {/* Détails - Inversé */}
                   <ul className={`space-y-2 mb-6 ${isEven ? 'md:text-right' : ''}`}>
-                    {service.details.slice(0, 2).map((detail, idx) => (
+                    {details.slice(0, 2).map((detail, idx) => (
                       <li key={idx} className={`flex items-start text-sm text-gray-600 ${isEven ? 'md:flex-row-reverse md:justify-end' : ''}`}>
                         <span className={`text-primary ${isEven ? 'md:ml-2 md:mr-0' : 'mr-2'} mt-1 flex-shrink-0`}>
                           {isEven ? '◉' : '•'}
@@ -123,23 +217,23 @@ export default function ServicesSection() {
                   {/* Badge ou indicateur - Inversé */}
                   <div className={`flex items-center gap-3 flex-wrap ${isEven ? 'md:justify-end md:flex-row-reverse' : 'justify-between'}`}>
                     <span className="inline-block bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold">
-                      {service.category === 'banking' && 'Banque'}
-                      {service.category === 'transfer' && 'Transfert'}
-                      {service.category === 'exchange' && 'Change'}
-                      {service.category === 'mobile' && 'Mobile'}
+                      {service.category === 'banking' && (isFrench ? 'Banque' : 'Banking')}
+                      {service.category === 'transfer' && (isFrench ? 'Transfert' : 'Transfer')}
+                      {service.category === 'exchange' && (isFrench ? 'Change' : 'Exchange')}
+                      {service.category === 'mobile' && (isFrench ? 'Mobile' : 'Mobile')}
                     </span>
                     <Link
-                      href="#contact"
+                      href="/contact"
                       className={`flex items-center text-primary hover:text-primary-dark font-semibold text-sm transition-transform ${isEven ? 'md:flex-row-reverse md:group-hover:-translate-x-1' : 'group-hover:translate-x-1'}`}
                     >
                       {isEven ? (
                         <>
                           <ArrowRight className="w-4 h-4 mr-1 rotate-180" />
-                          En savoir plus
+                          {isFrench ? 'En savoir plus' : 'Learn more'}
                         </>
                       ) : (
                         <>
-                          En savoir plus
+                          {isFrench ? 'En savoir plus' : 'Learn more'}
                           <ArrowRight className="w-4 h-4 ml-1" />
                         </>
                       )}

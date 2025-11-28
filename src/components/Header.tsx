@@ -2,16 +2,21 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Globe } from 'lucide-react';
+import { useRouter, usePathname } from 'next/navigation';
+import Image from 'next/image';
+import { Menu, X, ChevronDown, Briefcase, MapPin, Mail, CreditCard, Info } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { NAVIGATION } from '@/lib/constants';
 import Sidebar from './Sidebar';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Header() {
+  const router = useRouter();
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [language, setLanguage] = useState<'fr' | 'en'>('fr');
+  const [isLangDropdownOpen, setIsLangDropdownOpen] = useState(false);
+  const { language, setLanguage } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,47 +29,62 @@ export default function Header() {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
-  const navItems = [
-    { 
-      href: '#accueil', 
-      label: NAVIGATION.home,
-      dropdown: null
+  // Fonction pour gérer les clics sur les liens avec ancres
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('/#')) {
+      e.preventDefault();
+      const hash = href.substring(1); // Enlever le / pour garder #services
+      
+      if (pathname === '/') {
+        // Si on est déjà sur la page d'accueil, scroll vers l'ancre
+        setTimeout(() => {
+          const element = document.querySelector(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      } else {
+        // Si on est sur une autre page, rediriger vers la page d'accueil avec l'ancre
+        router.push(href);
+        // Scroll vers l'ancre après le chargement de la page
+        setTimeout(() => {
+          const element = document.querySelector(hash);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 500);
+      }
+    }
+  };
+
+  const mainLinks = [
+    {
+      href: '/#services',
+      label: language === 'fr' ? 'Services' : 'Services',
+      external: false,
+      icon: Briefcase,
+      iconColor: 'text-yellow-400',
     },
-    { 
-      href: '#services', 
-      label: NAVIGATION.services,
-      dropdown: [
-        { href: '#services', label: 'Tous nos services' },
-        { href: '#services', label: 'Cartes UBA' },
-        { href: '#services', label: 'Transferts d\'argent' },
-        { href: '#services', label: 'Change de devises' },
-        { href: '#services', label: 'Mobile Banking' },
-      ]
+    {
+      href: '/#tarifs',
+      label: language === 'fr' ? 'Nos tarifs' : 'Our pricing',
+      external: false,
+      icon: CreditCard,
+      iconColor: 'text-purple-400',
     },
-    { 
-      href: '#agences', 
-      label: NAVIGATION.agencies,
-      dropdown: null
+    {
+      href: '/#apropos',
+      label: language === 'fr' ? 'À propos' : 'About',
+      external: false,
+      icon: Info,
+      iconColor: 'text-blue-400',
     },
-    { 
-      href: '#apropos', 
-      label: NAVIGATION.about,
-      dropdown: [
-        { href: '#apropos', label: 'Notre histoire' },
-        { href: '#apropos', label: 'Le fondateur' },
-        { href: '#apropos', label: 'Groupe REAVEM' },
-        { href: '#apropos', label: 'Nos valeurs' },
-      ]
-    },
-    { 
-      href: '#tarifs', 
-      label: NAVIGATION.pricing,
-      dropdown: null
-    },
-    { 
-      href: '#contact', 
-      label: NAVIGATION.contact,
-      dropdown: null
+    {
+      href: '/agences',
+      label: language === 'fr' ? 'Nos agences' : 'Our agencies',
+      external: false,
+      icon: MapPin,
+      iconColor: 'text-green-400',
     },
   ];
 
@@ -77,76 +97,124 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <div className="flex items-center space-x-3">
-            <button
-              onClick={() => setIsSidebarOpen(true)}
-              className="text-white hover:text-red-200 transition-colors p-2 rounded-full border border-white/20"
-              aria-label="Ouvrir le menu rapide"
-            >
-              <Menu className="w-5 h-5" />
-            </button>
-
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                <span className="text-primary font-bold text-xl">TE</span>
+              <div className="relative w-14 h-14 rounded-full bg-white shadow-lg overflow-hidden ring-2 ring-white/40">
+                <Image
+                  src="/images/logo.png"
+                  alt="Transfer and Exchange Services Logo"
+                  fill
+                  sizes="56px"
+                  className="object-contain p-1"
+                  priority
+                />
               </div>
-              <div className="hidden sm:block">
-                <h1 className="text-white font-bold text-lg font-heading">
+              <div className="hidden md:block">
+                <h1 className="text-white font-bold text-lg font-heading leading-tight">
                   Transfer & Exchange
                 </h1>
-                <p className="text-red-100 text-xs">Services SARL</p>
+                <p className="text-red-100 text-xs font-medium tracking-wider uppercase">
+                  Services SARL
+                </p>
               </div>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-6">
-            {navItems.map((item) => (
-              <div key={item.href} className="relative group">
+          <nav className="hidden lg:flex items-center space-x-8 ml-16">
+            {mainLinks.map((item) => {
+              const Icon = item.icon;
+              return (
                 <Link
+                  key={item.href}
                   href={item.href}
-                  className="text-white hover:text-red-200 transition-colors font-medium flex items-center space-x-1"
+                  className="relative flex items-center space-x-2 text-white hover:text-red-200 transition-colors font-medium group"
                 >
-                  <span>{language === 'fr' ? item.label.fr : item.label.en}</span>
-                  {item.dropdown && (
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  )}
+                  <Icon className={`w-4 h-4 ${item.iconColor}`} />
+                  <span>{item.label}</span>
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white group-hover:w-full transition-all duration-300" />
                 </Link>
-                {item.dropdown && (
-                  <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                    <div className="py-2">
-                      {item.dropdown.map((dropdownItem, idx) => (
-                        <Link
-                          key={idx}
-                          href={dropdownItem.href}
-                          className="block px-4 py-2 text-gray-700 hover:bg-primary hover:text-white transition-colors"
-                        >
-                          {dropdownItem.label}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </nav>
 
           {/* Language Switcher & CTA */}
-          <div className="hidden lg:flex items-center space-x-4">
-            <button
-              onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
-              className="flex items-center space-x-2 text-white hover:text-red-200 transition-colors"
-            >
-              <Globe className="w-5 h-5" />
-              <span className="font-medium">{language.toUpperCase()}</span>
-            </button>
+          <div className="hidden lg:flex items-center space-x-4 ml-8">
+            {/* Language Dropdown */}
+            <div className="relative">
+              <button
+                onMouseEnter={() => setIsLangDropdownOpen(true)}
+                onMouseLeave={() => setIsLangDropdownOpen(false)}
+                className="flex items-center space-x-2 text-white hover:text-red-200 transition-colors"
+              >
+                {language === 'fr' ? (
+                  <div className="w-5 h-4 rounded-sm overflow-hidden flex">
+                    <div className="w-1/3 bg-blue-600" />
+                    <div className="w-1/3 bg-white" />
+                    <div className="w-1/3 bg-red-600" />
+                  </div>
+                ) : (
+                  <div className="w-5 h-4 rounded-sm overflow-hidden flex flex-col">
+                    <div className="h-1/3 bg-blue-600" />
+                    <div className="h-1/3 bg-white" />
+                    <div className="h-1/3 bg-red-600" />
+                  </div>
+                )}
+                <span className="font-medium">{language.toUpperCase()}</span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${isLangDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              <AnimatePresence>
+                {isLangDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    onMouseEnter={() => setIsLangDropdownOpen(true)}
+                    onMouseLeave={() => setIsLangDropdownOpen(false)}
+                    className="absolute top-full right-0 mt-2 bg-white rounded-lg shadow-xl py-2 min-w-[140px] z-50"
+                  >
+                    <button
+                      onClick={() => {
+                        setLanguage('fr');
+                        setIsLangDropdownOpen(false);
+                      }}
+                      className={`w-full flex items-center space-x-3 px-4 py-2 hover:bg-primary hover:text-white transition-colors ${
+                        language === 'fr' ? 'bg-primary/10 text-primary font-semibold' : 'text-gray-800'
+                      }`}
+                    >
+                      <div className="w-5 h-4 rounded-sm overflow-hidden flex">
+                        <div className="w-1/3 bg-blue-600" />
+                        <div className="w-1/3 bg-white" />
+                        <div className="w-1/3 bg-red-600" />
+                      </div>
+                      <span>Français</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        setLanguage('en');
+                        setIsLangDropdownOpen(false);
+                      }}
+                      className={`w-full flex items-center space-x-3 px-4 py-2 hover:bg-primary hover:text-white transition-colors ${
+                        language === 'en' ? 'bg-primary/10 text-primary font-semibold' : 'text-gray-800'
+                      }`}
+                    >
+                      <div className="w-5 h-4 rounded-sm overflow-hidden flex flex-col">
+                        <div className="h-1/3 bg-blue-600" />
+                        <div className="h-1/3 bg-white" />
+                        <div className="h-1/3 bg-red-600" />
+                      </div>
+                      <span>English</span>
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
             <Link
-              href="#contact"
-              className="bg-white text-primary px-6 py-2 rounded-lg font-semibold hover:bg-red-50 transition-colors"
+              href="/contact"
+              className="flex items-center space-x-2 bg-white text-primary px-6 py-2 rounded-lg font-semibold hover:bg-yellow-400 hover:text-gray-900 transition-colors group"
             >
-              {language === 'fr' ? 'Ouvrir un compte' : 'Open an account'}
+              <Mail className="w-5 h-5 text-primary group-hover:text-gray-900 transition-colors" />
+              <span className="group-hover:text-gray-900 transition-colors">{language === 'fr' ? 'Nous contacter' : 'Contact us'}</span>
             </Link>
           </div>
 
@@ -171,39 +239,104 @@ export default function Header() {
             className="lg:hidden bg-primary border-t border-red-600"
           >
             <nav className="container mx-auto px-4 py-6 space-y-4">
-              {navItems.map((item) => (
+              {mainLinks.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={(e) => {
+                      handleAnchorClick(e, item.href);
+                      closeMenu();
+                    }}
+                    className="flex items-center space-x-3 text-white hover:text-red-200 transition-colors font-medium py-2"
+                  >
+                    <Icon className={`w-5 h-5 ${item.iconColor}`} />
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
+              <div className="pt-4 border-t border-red-600 space-y-3">
+                <div>
+                  <button
+                    onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
+                    className="flex items-center justify-between w-full text-white hover:text-red-200 transition-colors font-medium py-2"
+                  >
+                    <div className="flex items-center space-x-2">
+                      {language === 'fr' ? (
+                        <div className="w-5 h-4 rounded-sm overflow-hidden flex">
+                          <div className="w-1/3 bg-blue-600" />
+                          <div className="w-1/3 bg-white" />
+                          <div className="w-1/3 bg-red-600" />
+                        </div>
+                      ) : (
+                        <div className="w-5 h-4 rounded-sm overflow-hidden flex flex-col">
+                          <div className="h-1/3 bg-blue-600" />
+                          <div className="h-1/3 bg-white" />
+                          <div className="h-1/3 bg-red-600" />
+                        </div>
+                      )}
+                      <span>{language === 'fr' ? 'Français' : 'English'}</span>
+                    </div>
+                    <ChevronDown className={`w-4 h-4 transition-transform ${isLangDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  <AnimatePresence>
+                    {isLangDropdownOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="pl-4 space-y-2"
+                      >
+                        <button
+                          onClick={() => {
+                            setLanguage('fr');
+                            setIsLangDropdownOpen(false);
+                          }}
+                          className={`w-full flex items-center space-x-2 text-left py-2 ${
+                            language === 'fr' ? 'text-white font-semibold' : 'text-red-100'
+                          }`}
+                        >
+                          <div className="w-5 h-4 rounded-sm overflow-hidden flex">
+                            <div className="w-1/3 bg-blue-600" />
+                            <div className="w-1/3 bg-white" />
+                            <div className="w-1/3 bg-red-600" />
+                          </div>
+                          <span>Français</span>
+                        </button>
+                        <button
+                          onClick={() => {
+                            setLanguage('en');
+                            setIsLangDropdownOpen(false);
+                          }}
+                          className={`w-full flex items-center space-x-2 text-left py-2 ${
+                            language === 'en' ? 'text-white font-semibold' : 'text-red-100'
+                          }`}
+                        >
+                          <div className="w-5 h-4 rounded-sm overflow-hidden flex flex-col">
+                            <div className="h-1/3 bg-blue-600" />
+                            <div className="h-1/3 bg-white" />
+                            <div className="h-1/3 bg-red-600" />
+                          </div>
+                          <span>English</span>
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
                 <Link
-                  key={item.href}
-                  href={item.href}
+                  href="/contact"
                   onClick={closeMenu}
-                  className="block text-white hover:text-red-200 transition-colors font-medium py-2"
+                  className="flex items-center justify-center space-x-2 w-full bg-white text-primary px-6 py-2 rounded-lg font-semibold hover:bg-yellow-400 hover:text-gray-900 transition-colors group"
                 >
-                  {language === 'fr' ? item.label.fr : item.label.en}
-                </Link>
-              ))}
-              <div className="flex items-center justify-between pt-4 border-t border-red-600">
-                <button
-                  onClick={() => {
-                    setLanguage(language === 'fr' ? 'en' : 'fr');
-                    closeMenu();
-                  }}
-                  className="flex items-center space-x-2 text-white"
-                >
-                  <Globe className="w-5 h-5" />
-                  <span>{language.toUpperCase()}</span>
-                </button>
-                <Link
-                  href="#contact"
-                  onClick={closeMenu}
-                  className="bg-white text-primary px-6 py-2 rounded-lg font-semibold"
-                >
-                  {language === 'fr' ? 'Ouvrir un compte' : 'Open an account'}
+                  <Mail className="w-5 h-5 text-primary group-hover:text-gray-900 transition-colors" />
+                  <span className="group-hover:text-gray-900 transition-colors">{language === 'fr' ? 'Nous contacter' : 'Contact us'}</span>
                 </Link>
               </div>
             </nav>
           </motion.div>
         )}
-          </AnimatePresence>
+      </AnimatePresence>
 
       {/* Sidebar */}
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />

@@ -5,14 +5,20 @@ import { testimonials } from '@/data/testimonials';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import { Star } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function TestimonialsSection() {
+  const { language } = useLanguage();
+  const isFrench = language === 'fr';
+
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <SectionHeading
-          title="Témoignages Clients"
-          subtitle="Ce que nos clients disent de nos services"
+          title={isFrench ? 'Témoignages clients' : 'Customer testimonials'}
+          subtitle={
+            isFrench ? 'Ce que nos clients disent de nos services' : 'What our clients say about our services'
+          }
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -33,7 +39,9 @@ export default function TestimonialsSection() {
                     <h4 className="font-semibold text-gray-800">
                       {testimonial.name}
                     </h4>
-                    <p className="text-sm text-gray-600">{testimonial.role}</p>
+                    <p className="text-sm text-gray-600">
+                      {isFrench ? testimonial.role : testimonial.roleEn}
+                    </p>
                   </div>
                 </div>
                 <div className="flex mb-4">
@@ -44,7 +52,9 @@ export default function TestimonialsSection() {
                     />
                   ))}
                 </div>
-                <p className="text-gray-700 italic">"{testimonial.content}"</p>
+                <p className="text-gray-700 italic">
+                  "{isFrench ? testimonial.content : testimonial.contentEn}"
+                </p>
               </Card>
             </motion.div>
           ))}

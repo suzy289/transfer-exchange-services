@@ -118,6 +118,25 @@ export const services: Service[] = [
     ],
   },
   {
+    id: 'salary-payment',
+    title: 'Paiement de Salaires',
+    titleEn: 'Salary Payments',
+    description: 'Solution dédiée pour les entreprises partenaires',
+    descriptionEn: 'Dedicated payout solution for partner companies',
+    icon: '💼',
+    category: 'banking',
+    details: [
+      'Versement sécurisé des salaires via UBA',
+      'Gestion des listings employés et validation',
+      'Assistance dédiée pour les opérations mensuelles',
+    ],
+    detailsEn: [
+      'Secure salary disbursement through UBA',
+      'Employee listing management and validation',
+      'Dedicated support for monthly operations',
+    ],
+  },
+  {
     id: 'bill-payment',
     title: 'Paiement de Factures',
     titleEn: 'Bill Payment',

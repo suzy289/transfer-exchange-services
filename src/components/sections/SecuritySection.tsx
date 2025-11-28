@@ -4,32 +4,57 @@ import { motion } from 'framer-motion';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import { AlertTriangle, Lock, Eye, ShieldCheck } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
-const securityTips = [
-  {
-    icon: Lock,
-    title: 'Protection des Codes',
-    description: 'Vos codes PIN et mots de passe sont confidentiels. Ne les divulguez jamais à personne.',
-  },
-  {
-    icon: Eye,
-    title: 'Vigilance',
-    description: 'Soyez attentif aux tentatives de phishing et aux communications suspectes.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Transactions Sécurisées',
-    description: 'Toutes vos transactions sont cryptées et protégées par nos systèmes de sécurité avancés.',
-  },
-];
+const tipsContent = {
+  fr: [
+    {
+      icon: Lock,
+      title: 'Protection des codes',
+      description: 'Vos codes PIN et mots de passe sont confidentiels. Ne les divulguez jamais à personne.',
+    },
+    {
+      icon: Eye,
+      title: 'Vigilance',
+      description: 'Soyez attentif aux tentatives de phishing et aux communications suspectes.',
+    },
+    {
+      icon: ShieldCheck,
+      title: 'Transactions sécurisées',
+      description: 'Toutes vos transactions sont cryptées et protégées par nos systèmes de sécurité avancés.',
+    },
+  ],
+  en: [
+    {
+      icon: Lock,
+      title: 'Code protection',
+      description: 'Your PIN codes and passwords are confidential. Never share them with anyone.',
+    },
+    {
+      icon: Eye,
+      title: 'Stay vigilant',
+      description: 'Be alert to phishing attempts and suspicious communications.',
+    },
+    {
+      icon: ShieldCheck,
+      title: 'Secure transactions',
+      description: 'All your transactions are encrypted and protected by our advanced security systems.',
+    },
+  ],
+} as const;
 
 export default function SecuritySection() {
+  const { language } = useLanguage();
+  const isFrench = language === 'fr';
+  const securityTips = tipsContent[language];
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
         <SectionHeading
-          title="Information de Sécurité"
-          subtitle="Alerte aux arnaques. Avis de non-divulgation."
+          title={isFrench ? 'Information de sécurité' : 'Security information'}
+          subtitle={
+            isFrench ? 'Alerte aux arnaques. Avis de non-divulgation.' : 'Scam alert. Non-disclosure notice.'
+          }
         />
 
         <motion.div
@@ -43,13 +68,19 @@ export default function SecuritySection() {
               <AlertTriangle className="w-8 h-8 text-red-600 flex-shrink-0 mt-1" />
               <div>
                 <h3 className="text-xl font-bold mb-3 text-red-800 font-heading">
-                  Chez Transfer and Exchange Services, garder vos informations confidentielles et sécurisées est une priorité.
+                  {isFrench
+                    ? 'Chez Transfer and Exchange Services, garder vos informations confidentielles et sécurisées est une priorité.'
+                    : 'At Transfer and Exchange Services, keeping your information confidential and secure is a priority.'}
                 </h3>
                 <p className="text-red-700 mb-4">
-                  Veuillez noter que les détails de votre carte bancaire, les services bancaires par Internet et votre code PIN sont confidentiels et ne doivent être divulgués à personne.
+                  {isFrench
+                    ? 'Veuillez noter que les détails de votre carte bancaire, les services bancaires par Internet et votre code PIN sont confidentiels et ne doivent être divulgués à personne.'
+                    : 'Please note that your card details, internet banking credentials and PIN are confidential and must never be shared.'}
                 </p>
                 <p className="text-red-700 font-semibold">
-                  UBA et Transfer and Exchange Services ne vous demanderont jamais vos codes confidentiels par email, SMS ou téléphone.
+                  {isFrench
+                    ? 'UBA et Transfer and Exchange Services ne vous demanderont jamais vos codes confidentiels par email, SMS ou téléphone.'
+                    : 'UBA and Transfer and Exchange Services will never ask for your confidential codes by email, SMS or phone.'}
                 </p>
               </div>
             </div>

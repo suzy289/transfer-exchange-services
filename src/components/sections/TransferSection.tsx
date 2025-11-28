@@ -5,14 +5,20 @@ import { TRANSFER_SERVICES } from '@/lib/constants';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Card from '@/components/ui/Card';
 import { MapPin, Globe } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function TransferSection() {
+  const { language } = useLanguage();
+  const isFrench = language === 'fr';
+
   return (
     <section className="py-20 bg-background-secondary">
       <div className="container mx-auto px-4">
         <SectionHeading
-          title="Services de Transfert d'Argent"
-          subtitle="Envoyez et recevez de l'argent partout dans le monde"
+          title={isFrench ? "Services de transfert d'argent" : 'Money transfer services'}
+          subtitle={
+            isFrench ? "Envoyez et recevez de l'argent partout dans le monde" : 'Send and receive money worldwide'
+          }
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -27,7 +33,7 @@ export default function TransferSection() {
               <div className="flex items-center mb-6">
                 <MapPin className="w-8 h-8 text-primary mr-3" />
                 <h3 className="text-2xl font-semibold text-primary font-heading">
-                  Transferts Nationaux
+                  {isFrench ? 'Transferts nationaux' : 'Domestic transfers'}
                 </h3>
               </div>
               <div className="space-y-4">
@@ -59,7 +65,7 @@ export default function TransferSection() {
               <div className="flex items-center mb-6">
                 <Globe className="w-8 h-8 text-primary mr-3" />
                 <h3 className="text-2xl font-semibold text-primary font-heading">
-                  Transferts Internationaux
+                  {isFrench ? 'Transferts internationaux' : 'International transfers'}
                 </h3>
               </div>
               <div className="space-y-4">
