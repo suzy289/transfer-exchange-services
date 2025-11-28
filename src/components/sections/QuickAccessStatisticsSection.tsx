@@ -199,136 +199,73 @@ export default function QuickAccessStatisticsSection() {
                     href={link.href}
                     target={link.href.startsWith('http') ? '_blank' : undefined}
                     rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    initial={{ opacity: 0, y: 30, scale: 0.8, rotate: -5 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-50px' }}
                     transition={{ 
-                      delay: index * 0.1,
+                      delay: index * 0.08,
                       type: 'spring',
-                      stiffness: 150,
-                      damping: 12
+                      stiffness: 100,
+                      damping: 15
                     }}
-                    whileHover={{ 
-                      y: -10,
-                      scale: 1.05,
-                      rotate: [0, -2, 2, -2, 0],
-                    }}
+                    whileHover={{ y: -6, scale: 1.02 }}
                     className="group relative block"
                   >
-                    {/* Explosive card design */}
-                    <div className="relative h-full bg-white rounded-2xl p-6 border-2 border-black shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
-                      {/* Animated background gradient */}
-                      <motion.div
-                        className={`absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-                          link.isRed 
-                            ? 'from-primary/20 via-primary/10 to-primary/5' 
-                            : 'from-gray-100 via-gray-50 to-white'
-                        }`}
-                        animate={{
-                          backgroundPosition: ['0% 0%', '100% 100%'],
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          repeatType: 'reverse',
-                        }}
-                      />
+                    {/* Card design moderne */}
+                    <div className={`relative h-full rounded-2xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden flex items-center gap-3 sm:gap-4 ${
+                      link.isRed 
+                        ? 'bg-gradient-to-br from-primary via-primary to-red-700' 
+                        : 'bg-white border-2 border-gray-200 hover:border-black'
+                    }`}>
                       
-                      {/* Explosive border effect on hover */}
-                      <motion.div
-                        className={`absolute inset-0 rounded-2xl border-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-                          link.isRed ? 'border-primary' : 'border-gray-400'
-                        }`}
-                        animate={{
-                          boxShadow: link.isRed 
-                            ? ['0 0 0px rgba(220, 38, 38, 0)', '0 0 20px rgba(220, 38, 38, 0.5)', '0 0 0px rgba(220, 38, 38, 0)']
-                            : ['0 0 0px rgba(0, 0, 0, 0)', '0 0 15px rgba(0, 0, 0, 0.3)', '0 0 0px rgba(0, 0, 0, 0)'],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                        }}
-                      />
-                      
-                      {/* Animated corner accents */}
-                      <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      
-                      {/* Content */}
-                      <div className="relative z-10">
-                        {/* Icon container with explosive animation */}
-                        <div className="relative flex justify-start mb-4">
-                          <motion.div
-                            className={`relative w-14 h-14 rounded-xl flex items-center justify-center border-2 shadow-lg group-hover:shadow-xl transition-all duration-300 ${
-                              link.isRed 
-                                ? 'bg-primary border-primary' 
-                                : 'bg-black border-black'
-                            }`}
-                            whileHover={{ 
-                              rotate: [0, -10, 10, -10, 0],
-                              scale: [1, 1.2, 1.15, 1.2, 1],
-                            }}
-                            animate={{
-                              boxShadow: link.isRed
-                                ? ['0 0 0px rgba(220, 38, 38, 0)', '0 0 15px rgba(220, 38, 38, 0.6)', '0 0 0px rgba(220, 38, 38, 0)']
-                                : ['0 0 0px rgba(0, 0, 0, 0)', '0 0 10px rgba(0, 0, 0, 0.4)', '0 0 0px rgba(0, 0, 0, 0)'],
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                            }}
-                          >
-                            {/* Pulsing ring */}
-                            <motion.div
-                              className={`absolute inset-0 rounded-xl border-2 ${
-                                link.isRed ? 'border-primary' : 'border-black'
-                              } opacity-0 group-hover:opacity-100`}
-                              animate={{
-                                scale: [1, 1.5, 1],
-                                opacity: [0, 0.6, 0],
-                              }}
-                              transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: 'easeOut'
-                              }}
-                            />
-                            <Icon className="w-7 h-7 text-white relative z-10" />
-                          </motion.div>
+                      {/* Decorative circles for colored cards */}
+                      {link.isRed && (
+                        <div className="absolute inset-0 opacity-10 overflow-hidden">
+                          <div className="absolute -top-8 -right-8 w-24 h-24 bg-white rounded-full" />
+                          <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-white rounded-full" />
                         </div>
+                      )}
+                      
+                      {/* Icon container */}
+                      <div className={`relative flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 ${
+                        link.isRed 
+                          ? 'bg-white/20 backdrop-blur-sm' 
+                          : 'bg-black'
+                      }`}>
+                        <Icon className="w-5 h-5 sm:w-5.5 sm:h-5.5 md:w-6 md:h-6 text-white" />
+                      </div>
 
-                        {/* Title with explosive effect */}
-                        <motion.h3
-                          className="text-lg font-bold text-gray-900 mb-2 font-heading group-hover:text-primary transition-colors"
-                          whileHover={{ scale: 1.05 }}
-                        >
+                      {/* Content */}
+                      <div className="relative z-10 flex-1 min-w-0">
+                        <h3 className={`text-sm sm:text-base md:text-lg font-bold font-heading mb-0.5 sm:mb-1 truncate ${
+                          link.isRed ? 'text-white' : 'text-black'
+                        }`}>
                           {link.title}
-                        </motion.h3>
-
-                        {/* Description */}
-                        <p className="text-xs text-gray-600 mb-3 group-hover:text-gray-900 transition-colors line-clamp-2">
+                        </h3>
+                        <p className={`text-xs sm:text-sm leading-snug line-clamp-2 ${
+                          link.isRed ? 'text-white' : 'text-gray-700'
+                        }`}>
                           {link.description}
                         </p>
                       </div>
 
-                      {/* Bottom accent line with wave effect */}
-                      <motion.div
-                        className="absolute bottom-0 left-0 right-0 h-1 bg-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        initial={{ scaleX: 0 }}
-                        whileInView={{ scaleX: 1 }}
-                        viewport={{ once: true }}
-                        animate={{
-                          scaleX: [1, 1.05, 1],
-                        }}
-                        transition={{
-                          delay: index * 0.1 + 0.2,
-                          duration: 0.6,
-                          repeat: Infinity,
-                          repeatDelay: 1.4,
-                        }}
-                      />
+                      {/* Arrow indicator */}
+                      <div className={`flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center transition-all duration-300 group-hover:translate-x-1 ${
+                        link.isRed 
+                          ? 'bg-white/30' 
+                          : 'bg-gray-200 group-hover:bg-black'
+                      }`}>
+                        <svg className={`w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 transition-colors ${
+                          link.isRed ? 'text-white' : 'text-gray-700 group-hover:text-white'
+                        }`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+
+                      {/* Bottom accent for white cards */}
+                      {!link.isRed && (
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                      )}
                     </div>
                   </motion.a>
                 );
@@ -358,172 +295,83 @@ export default function QuickAccessStatisticsSection() {
               {statistics.map((stat, index) => {
                 const Icon = stat.icon;
                 const isRed = index < 2;
-                // Different shapes for different statistics
-                const shapeClass = index === 0 ? 'rounded-2xl' : index === 1 ? 'rounded-3xl' : index === 2 ? 'rounded-xl' : 'rounded-2xl';
                 return (
                   <motion.div
                     key={stat.id}
-                    initial={{ opacity: 0, y: 40, scale: 0.8, rotate: 5 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-50px' }}
                     transition={{ 
-                      delay: index * 0.12,
+                      delay: index * 0.1,
                       type: 'spring',
-                      stiffness: 120,
-                      damping: 12
+                      stiffness: 100,
+                      damping: 15
                     }}
-                    whileHover={{ 
-                      y: -12,
-                      scale: 1.08,
-                      rotate: [0, -3, 3, -3, 0],
-                    }}
+                    whileHover={{ y: -8, scale: 1.02 }}
                     className="group relative"
                   >
-                    {/* Card with varied shapes */}
-                    <div className={`relative h-full bg-white ${shapeClass} p-3 xs:p-4 sm:p-5 md:p-6 border-2 border-black shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden`}>
-                      {/* Dynamic gradient overlay */}
-                      <motion.div
-                        className={`absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${shapeClass} ${
+                    {/* Card moderne et épuré */}
+                    <div className={`relative h-full rounded-2xl p-4 xs:p-5 sm:p-6 md:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden ${
+                      isRed 
+                        ? 'bg-gradient-to-br from-primary via-primary to-red-700 text-white' 
+                        : 'bg-white border-2 border-gray-200 hover:border-black'
+                    }`}>
+                      
+                      {/* Subtle pattern overlay for red cards */}
+                      {isRed && (
+                        <div className="absolute inset-0 opacity-10">
+                          <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full -translate-y-1/2 translate-x-1/2" />
+                          <div className="absolute bottom-0 left-0 w-24 h-24 bg-white rounded-full translate-y-1/2 -translate-x-1/2" />
+                        </div>
+                      )}
+                      
+                      {/* Icon container */}
+                      <div className="relative flex justify-center mb-3 sm:mb-4">
+                        <div className={`relative rounded-xl flex items-center justify-center w-12 h-12 xs:w-14 xs:h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 transition-transform duration-300 group-hover:scale-110 ${
                           isRed 
-                            ? 'from-primary/15 via-primary/8 to-primary/3' 
-                            : 'from-gray-50 via-gray-100 to-gray-50'
-                        }`}
-                        animate={{
-                          backgroundPosition: ['0% 0%', '100% 100%'],
-                        }}
-                        transition={{
-                          duration: 4,
-                          repeat: Infinity,
-                          repeatType: 'reverse',
-                        }}
-                      />
-                      
-                      {/* Animated border with glow */}
-                      <motion.div
-                        className={`absolute inset-0 ${shapeClass} border-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-                          isRed ? 'border-primary' : 'border-black'
-                        }`}
-                        animate={{
-                          boxShadow: isRed
-                            ? ['0 0 0px rgba(220, 38, 38, 0)', '0 0 25px rgba(220, 38, 38, 0.4)', '0 0 0px rgba(220, 38, 38, 0)']
-                            : ['0 0 0px rgba(0, 0, 0, 0)', '0 0 20px rgba(0, 0, 0, 0.2)', '0 0 0px rgba(0, 0, 0, 0)'],
-                        }}
-                        transition={{
-                          duration: 2.5,
-                          repeat: Infinity,
-                        }}
-                      />
-                      
-                      {/* Icon container with varied shapes */}
-                      <div className="relative flex justify-center mb-2 sm:mb-3 md:mb-4">
-                        <motion.div
-                          className={`relative ${index === 1 ? 'rounded-2xl' : 'rounded-xl'} flex items-center justify-center border-2 shadow-lg group-hover:shadow-xl transition-all duration-300 w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 md:w-[4.5rem] md:h-[4.5rem] ${
-                            isRed 
-                              ? 'bg-primary border-primary' 
-                              : 'bg-gray-50 border-black'
-                          }`}
-                          whileHover={{ 
-                            rotate: [0, -8, 8, -8, 0],
-                            scale: [1, 1.25, 1.2, 1.25, 1],
-                          }}
-                          animate={{
-                            boxShadow: isRed
-                              ? ['0 0 0px rgba(220, 38, 38, 0)', '0 0 20px rgba(220, 38, 38, 0.5)', '0 0 0px rgba(220, 38, 38, 0)']
-                              : ['0 0 0px rgba(0, 0, 0, 0)', '0 0 15px rgba(0, 0, 0, 0.3)', '0 0 0px rgba(0, 0, 0, 0)'],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                          }}
-                        >
-                          {/* Multiple animated rings */}
-                          <motion.div
-                            className={`absolute inset-0 ${index === 1 ? 'rounded-2xl' : 'rounded-xl'} border-2 opacity-0 group-hover:opacity-100 ${
-                              isRed ? 'border-primary' : 'border-black'
-                            }`}
-                            animate={{
-                              scale: [1, 1.3, 1],
-                              opacity: [0, 0.5, 0],
-                            }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                              ease: 'easeOut'
-                            }}
-                          />
-                          <motion.div
-                            className={`absolute inset-0 ${index === 1 ? 'rounded-2xl' : 'rounded-xl'} border border-primary/30 opacity-0 group-hover:opacity-100`}
-                            animate={{
-                              scale: [1, 1.6, 1],
-                              opacity: [0, 0.3, 0],
-                            }}
-                            transition={{
-                              duration: 2.5,
-                              repeat: Infinity,
-                              ease: 'easeOut',
-                              delay: 0.5,
-                            }}
-                          />
-                          <Icon className={`w-5 h-5 xs:w-6 xs:h-6 sm:w-7 sm:h-7 md:w-9 md:h-9 relative z-10 ${
-                            isRed ? 'text-white' : 'text-black'
+                            ? 'bg-white/20 backdrop-blur-sm' 
+                            : 'bg-black'
+                        }`}>
+                          <Icon className={`w-6 h-6 xs:w-7 xs:h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 ${
+                            isRed ? 'text-white' : 'text-white'
                           }`} />
-                        </motion.div>
+                        </div>
                       </div>
 
-                      {/* Value with explosive animation */}
+                      {/* Value */}
                       <motion.div
                         className="text-center mb-1 sm:mb-2"
-                        initial={{ opacity: 0, scale: 0.5 }}
+                        initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        transition={{ delay: index * 0.12 + 0.3, type: 'spring', stiffness: 200 }}
+                        transition={{ delay: index * 0.1 + 0.2 }}
                       >
-                        <motion.div
-                          className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-0.5 sm:mb-1 font-heading"
-                          whileHover={{ scale: 1.15 }}
-                          animate={{
-                            textShadow: ['0 0 0px rgba(220, 38, 38, 0)', '0 0 10px rgba(220, 38, 38, 0.3)', '0 0 0px rgba(220, 38, 38, 0)'],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                          }}
-                        >
+                        <div className={`text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-black font-heading tracking-tight ${
+                          isRed ? 'text-white' : 'text-black'
+                        }`}>
                           {stat.value}
-                        </motion.div>
+                        </div>
                       </motion.div>
 
                       {/* Label */}
                       <motion.div
                         className="text-center"
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        transition={{ delay: index * 0.12 + 0.4 }}
+                        transition={{ delay: index * 0.1 + 0.3 }}
                       >
-                        <div className="text-[10px] xs:text-xs sm:text-sm text-gray-600 font-semibold group-hover:text-gray-900 transition-colors leading-tight">
+                        <div className={`text-xs xs:text-sm sm:text-base font-medium leading-tight ${
+                          isRed ? 'text-white/90' : 'text-gray-600'
+                        }`}>
                           {language === 'fr' ? stat.label : stat.labelEn}
                         </div>
                       </motion.div>
 
-                      {/* Bottom accent line with pulse */}
-                      <motion.div
-                        className={`absolute bottom-0 left-0 right-0 h-1 sm:h-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${shapeClass} ${
-                          isRed ? 'bg-primary' : 'bg-black'
-                        }`}
-                        initial={{ scaleX: 0 }}
-                        whileInView={{ scaleX: 1 }}
-                        viewport={{ once: true }}
-                        animate={{
-                          scaleX: [1, 1.1, 1],
-                        }}
-                        transition={{
-                          delay: index * 0.12 + 0.5,
-                          duration: 0.8,
-                          repeat: Infinity,
-                          repeatDelay: 1.2,
-                        }}
-                      />
+                      {/* Bottom accent for white cards */}
+                      {!isRed && (
+                        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-black to-primary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                      )}
                     </div>
                   </motion.div>
                 );

@@ -134,12 +134,12 @@ export default function QuickAccessSection() {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 font-heading group-hover:text-primary transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 font-heading group-hover:text-black transition-colors">
                       {link.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-sm text-gray-600 mb-4 group-hover:text-gray-900 transition-colors">
+                    <p className="text-sm text-gray-600 mb-4 group-hover:text-black transition-colors">
                       {link.description}
                     </p>
                   </div>

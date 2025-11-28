@@ -44,7 +44,7 @@ export default function FounderSection() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <div className="relative w-full h-[500px] md:h-[600px] rounded-lg overflow-hidden shadow-xl">
+            <div className="relative w-full h-[500px] md:h-[600px] rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src="/images/DJI_20251127124658_0172_D_traite.jpg"
                 alt={isFrench ? 'Dr Tcheutchoua Christophe' : 'Dr Tcheutchoua Christophe'}

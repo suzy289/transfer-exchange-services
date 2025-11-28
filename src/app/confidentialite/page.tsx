@@ -119,7 +119,7 @@ export default function ConfidentialitePage() {
                       ? 'Chez Transfer and Exchange Services, la sécurité de vos informations est prioritaire.'
                       : 'At Transfer and Exchange Services, safeguarding your information is a top priority.'}
                   </p>
-                  <div className="bg-white rounded-lg p-4 border border-red-200">
+                  <div className="bg-white rounded-xl p-4 border border-red-200">
                     <p className="text-red-800 font-semibold mb-2">
                       {isFrench ? 'Important :' : 'Important:'}
                     </p>

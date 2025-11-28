@@ -40,7 +40,7 @@ export default function TransferSection() {
                 {TRANSFER_SERVICES.national.map((service, index) => (
                   <div
                     key={index}
-                    className="flex items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
                   >
                     <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
                       <span className="text-primary font-bold">✓</span>
@@ -72,7 +72,7 @@ export default function TransferSection() {
                 {TRANSFER_SERVICES.international.map((service, index) => (
                   <div
                     key={index}
-                    className="flex items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
                   >
                     <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
                       <span className="text-primary font-bold">✓</span>

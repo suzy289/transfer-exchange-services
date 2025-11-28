@@ -138,7 +138,7 @@ export default function Header() {
                     exit={{ opacity: 0, y: -10 }}
                     onMouseEnter={() => setIsLangDropdownOpen(true)}
                     onMouseLeave={() => setIsLangDropdownOpen(false)}
-                    className="absolute top-full right-0 mt-2 bg-white rounded-lg shadow-xl py-2 min-w-[140px] z-50"
+                    className="absolute top-full right-0 mt-2 bg-white rounded-xl shadow-xl py-2 min-w-[140px] z-50"
                   >
                     <button
                       onClick={() => {
@@ -178,10 +178,10 @@ export default function Header() {
             </div>
             <Link
               href="/contact"
-              className="flex items-center space-x-2 bg-black text-white px-6 py-2 rounded-lg font-semibold hover:bg-yellow-400 hover:text-gray-900 transition-colors group"
+              className="flex items-center space-x-2 bg-black text-white px-6 py-2 rounded-xl font-semibold hover:bg-white hover:text-black transition-colors group"
             >
-              <Mail className="w-5 h-5 text-white group-hover:text-gray-900 transition-colors" />
-              <span className="group-hover:text-gray-900 transition-colors">{language === 'fr' ? 'Nous contacter' : 'Contact us'}</span>
+              <Mail className="w-5 h-5 text-white group-hover:text-black transition-colors" />
+              <span className="group-hover:text-black transition-colors">{language === 'fr' ? 'Nous contacter' : 'Contact us'}</span>
             </Link>
           </div>
 

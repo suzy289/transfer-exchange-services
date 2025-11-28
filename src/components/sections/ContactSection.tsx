@@ -83,7 +83,7 @@ export default function ContactSection() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder={isFrench ? 'Votre nom' : 'Your name'}
                     />
                   </div>
@@ -97,7 +97,7 @@ export default function ContactSection() {
                       value={formData.phone}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder="+237 XXX XXX XXX"
                     />
                   </div>
@@ -113,7 +113,7 @@ export default function ContactSection() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary"
                       placeholder={isFrench ? 'votre@email.com' : 'your@email.com'}
                   />
                 </div>
@@ -127,7 +127,7 @@ export default function ContactSection() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary"
                   >
                     <option value="">{isFrench ? 'Sélectionnez un sujet' : 'Select a subject'}</option>
                     <option value="information">{isFrench ? 'Information générale' : 'General info'}</option>
@@ -147,7 +147,7 @@ export default function ContactSection() {
                     onChange={handleChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary"
                     placeholder={isFrench ? 'Votre message' : 'Your message'}
                   />
                 </div>
@@ -169,7 +169,7 @@ export default function ContactSection() {
                 </div>
 
                 {submitStatus === 'success' && (
-                  <div className="bg-green-100 text-green-800 px-4 py-3 rounded-lg">
+                  <div className="bg-green-100 text-green-800 px-4 py-3 rounded-xl">
                     {isFrench
                       ? 'Message envoyé avec succès ! Nous vous répondrons sous peu.'
                       : 'Message sent successfully! We will get back to you shortly.'}
@@ -177,7 +177,7 @@ export default function ContactSection() {
                 )}
 
                 {submitStatus === 'error' && (
-                  <div className="bg-red-100 text-red-800 px-4 py-3 rounded-lg">
+                  <div className="bg-red-100 text-red-800 px-4 py-3 rounded-xl">
                     {isFrench ? 'Une erreur est survenue. Veuillez réessayer.' : 'An error occurred. Please try again.'}
                   </div>
                 )}

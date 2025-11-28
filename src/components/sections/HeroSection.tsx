@@ -68,8 +68,8 @@ export default function HeroSection() {
         subtitle: 'Le Cœur Financier du Groupe REAVEM',
         description:
           "Facilitons l'accès aux services bancaires et aux opérations financières du quotidien. Ouverture de comptes, transferts nationaux & internationaux, change de devises, paiement de factures et services mobile banking.",
-        primaryCta: 'Ouvrir un compte UBA',
-        secondaryCta: 'Découvrir nos services',
+        primaryCta: 'Ouvrir un compte',
+        secondaryCta: 'Nos services',
         servicesTitle: 'Services disponibles',
         services: [
           { icon: CreditCard, text: 'Cartes bancaires UBA' },
@@ -88,8 +88,8 @@ export default function HeroSection() {
         subtitle: 'The Financial Heart of REAVEM Group',
         description:
           'We facilitate access to banking services and daily financial operations. Account opening, national & international transfers, currency exchange, bill payments and mobile banking services.',
-        primaryCta: 'Open a UBA account',
-        secondaryCta: 'Discover our services',
+        primaryCta: 'Open an account',
+        secondaryCta: 'Our services',
         servicesTitle: 'Available services',
         services: [
           { icon: CreditCard, text: 'UBA banking cards' },
@@ -276,7 +276,7 @@ export default function HeroSection() {
                   {t.primaryCta}
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
-                <Button href="#services" variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-white">
+                <Button href="#services" variant="outline" size="lg" className="bg-transparent border-black text-white hover:bg-black hover:text-white">
                   {t.secondaryCta}
                 </Button>
               </div>
@@ -348,7 +348,7 @@ export default function HeroSection() {
                           <div className="flex items-center justify-between mb-6">
                             <div>
                               <div className="flex items-center gap-2 mb-2">
-                                <div className="inline-block bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-bold border border-white/30">
+                                <div className="inline-block bg-black text-white px-3 py-1 rounded-full text-xs font-bold border border-black">
                                   {language === 'fr' ? 'OFFRE SPÉCIALE' : 'SPECIAL OFFER'}
                                 </div>
                                 {index === 1 && (
@@ -356,7 +356,7 @@ export default function HeroSection() {
                                     initial={{ scale: 0, rotate: -180 }}
                                     animate={{ scale: 1, rotate: 0 }}
                                     transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
-                                    className="inline-flex items-center gap-1.5 bg-yellow-400 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg"
+                                    className="inline-flex items-center gap-1.5 bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold shadow-lg"
                                   >
                                     <Crown className="w-4 h-4" />
                                     <span>{language === 'fr' ? 'Le plus populaire' : 'Most popular'}</span>
@@ -367,21 +367,6 @@ export default function HeroSection() {
                                 {card.name} - {card.price} FCFA
                               </h3>
                               <p className="text-base text-yellow-400 font-medium">{card.description}</p>
-                            </div>
-                            <div className="relative w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border-2 border-white/50 overflow-hidden">
-                              <Image
-                                src="/images/carte uba.png"
-                                alt="UBA Card"
-                                fill
-                                sizes="80px"
-                                className="object-contain p-2"
-                                onError={(e) => {
-                                  const target = e.target as HTMLImageElement;
-                                  if (target.src.includes('.png')) {
-                                    target.src = target.src.replace('.png', '.jpg');
-                                  }
-                                }}
-                              />
                             </div>
                           </div>
                           
@@ -401,16 +386,28 @@ export default function HeroSection() {
                                 }}
                               />
                             </div>
-                            <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 border border-gray-200 h-32 md:h-40 flex flex-col justify-center">
-                              <p className="text-xs text-gray-500 mb-2 font-semibold uppercase tracking-wide">
-                                {language === 'fr' ? 'Plafond quotidien' : 'Daily limit'}
-                              </p>
-                              <p className="text-3xl font-bold text-gray-900">
-                                {card.limit} <span className="text-xl">FCFA</span>
-                              </p>
-                              <p className="text-xs text-gray-500 mt-1">
-                                {language === 'fr' ? '/ jour' : '/ day'}
-                              </p>
+                            <div className="relative bg-black rounded-xl p-4 h-32 md:h-40 flex flex-col justify-center overflow-hidden group/limit">
+                              {/* Glow effect */}
+                              <div className="absolute -top-10 -right-10 w-24 h-24 bg-primary/30 rounded-full blur-2xl group-hover/limit:bg-primary/50 transition-all duration-500" />
+                              <div className="absolute -bottom-5 -left-5 w-16 h-16 bg-yellow-400/20 rounded-full blur-xl" />
+                              {/* Content */}
+                              <div className="relative z-10">
+                                <p className="text-[10px] text-gray-400 mb-1 font-bold uppercase tracking-[0.2em]">
+                                  {language === 'fr' ? 'Plafond quotidien' : 'Daily limit'}
+                                </p>
+                                <div className="flex items-baseline gap-1">
+                                  <p className="text-2xl md:text-3xl font-black text-white tracking-tight">
+                                    {card.limit}
+                                  </p>
+                                  <span className="text-sm font-bold text-primary">FCFA</span>
+                                </div>
+                                <div className="mt-2 flex items-center gap-2">
+                                  <div className="h-1 w-8 bg-gradient-to-r from-primary to-yellow-400 rounded-full" />
+                                  <p className="text-[10px] text-gray-500 font-medium">
+                                    {language === 'fr' ? 'par jour' : 'per day'}
+                                  </p>
+                                </div>
+                              </div>
                             </div>
                           </div>
                           

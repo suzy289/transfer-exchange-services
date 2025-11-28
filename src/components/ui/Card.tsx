@@ -14,7 +14,7 @@ export default function Card({ children, className, hover = false, delay = 0 }: 
   return (
     <div
       className={cn(
-        'bg-white rounded-xl shadow-lg p-6 border border-gray-100 transition-all duration-300',
+        'bg-white rounded-2xl shadow-lg p-6 border border-gray-100 transition-all duration-300',
         hover && 'hover:shadow-2xl hover:-translate-y-1 hover:border-primary/30',
         className
       )}

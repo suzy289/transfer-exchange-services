@@ -32,7 +32,7 @@ export default function PricingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className={`rounded-lg shadow-lg overflow-hidden ${
+              className={`rounded-2xl shadow-lg overflow-hidden ${
                 tier.popular
                   ? 'border-2 border-primary transform scale-105 relative'
                   : 'border border-gray-200'

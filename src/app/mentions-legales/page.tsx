@@ -248,7 +248,7 @@ export default function MentionsLegalesPage() {
                     ? 'En utilisant les services de Transfer and Exchange Services SARL, vous confirmez que vous avez lu, compris et accepté ces termes et conditions dans leur intégralité. Vous reconnaissez également avoir la capacité légale de contracter et d\'utiliser nos services conformément aux lois camerounaises.'
                     : 'By using the services of Transfer and Exchange Services SARL, you confirm that you have read, understood and accepted these terms and conditions in their entirety. You also acknowledge that you have the legal capacity to contract and use our services in accordance with Cameroonian laws.'}
                 </p>
-                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+                <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
                   <p className="text-gray-600 mb-4">
                     {isFrench
                       ? 'Pour toute question concernant ces termes et conditions, veuillez nous contacter :'

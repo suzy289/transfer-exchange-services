@@ -111,7 +111,7 @@ export default function AgenciesSection() {
             <h3 className="text-2xl font-semibold mb-6 text-center text-gray-800 font-heading">
               {isFrench ? 'Localisation sur la carte' : 'Map location'}
             </h3>
-            <div className="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
+            <div className="bg-gray-200 rounded-2xl h-64 flex items-center justify-center">
               <div className="text-center text-gray-500">
                 <MapPin className="w-16 h-16 mx-auto mb-4" />
                 <p>{isFrench ? 'Carte interactive des agences' : 'Interactive map of agencies'}</p>

@@ -165,7 +165,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                 {navigationItems.map((item) => (
                   <li key={item.key}>
                     {item.children ? (
-                      <div className="rounded-lg bg-white/5">
+                      <div className="rounded-xl bg-white/5">
                         <button
                           onClick={() => toggleItem(item.key)}
                           className="w-full flex items-center justify-between px-3 py-2.5 text-left text-white/90 hover:text-white"
@@ -200,7 +200,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                       <Link
                         href={item.href ?? '#'}
                         onClick={onClose}
-                        className="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-white/15 transition-all duration-200 group"
+                        className="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-white/15 transition-all duration-200 group"
                       >
                         <item.icon className="w-5 h-5 text-white/80 group-hover:text-white transition-colors" />
                         <span className="font-medium text-sm text-white/90 group-hover:text-white transition-colors">
@@ -223,7 +223,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                     <Link
                       href={item.href ?? '#'}
                       onClick={onClose}
-                      className="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-white/15 transition-all duration-200 group"
+                      className="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-white/15 transition-all duration-200 group"
                     >
                       <item.icon className="w-5 h-5 text-white/80 group-hover:text-white transition-colors" />
                       <span className="font-medium text-sm text-white/90 group-hover:text-white transition-colors">
@@ -247,7 +247,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
                       onClick={onClose}
                       target={item.external ? '_blank' : undefined}
                       rel={item.external ? 'noopener noreferrer' : undefined}
-                      className="flex items-center space-x-3 px-3 py-2.5 rounded-lg hover:bg-white/15 transition-all duration-200 group"
+                      className="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-white/15 transition-all duration-200 group"
                     >
                       <item.icon className="w-5 h-5 text-white/80 group-hover:text-white transition-colors" />
                       <span className="font-medium text-sm text-white/90 group-hover:text-white transition-colors">
@@ -264,9 +264,9 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
               <Link
                 href="#contact"
                 onClick={onClose}
-                className="block w-full bg-primary text-white text-center py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+                className="block w-full bg-primary text-white text-center py-3 rounded-xl font-semibold hover:bg-primary-dark transition-colors"
               >
-                Ouvrir un compte UBA
+                {language === 'fr' ? 'Ouvrir un compte' : 'Open an account'}
               </Link>
             </div>
           </div>
