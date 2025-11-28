@@ -231,26 +231,6 @@ export default function ConfidentialitePage() {
                     transition={{ delay: item * 0.1 }}
                     className="relative group"
                   >
-                    <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border-2 border-gray-200 bg-gray-100">
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-center p-4">
-                          <Users className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                          <p className="text-sm text-gray-500 font-medium">
-                            {isFrench ? 'Photo du gardien de sécurité' : 'Security guard photo'}
-                          </p>
-                          <p className="text-xs text-gray-400 mt-2">
-                            {isFrench ? 'À ajouter' : 'To be added'}
-                          </p>
-                        </div>
-                      </div>
-                      {/* Image placeholder - sera remplacé par les vraies images */}
-                      {/* <Image
-                        src={`/images/security/guard-${item}.jpg`}
-                        alt={isFrench ? `Gardien de sécurité ${item}` : `Security guard ${item}`}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      /> */}
-                    </div>
                     <div className="mt-4 text-center">
                       <h4 className="font-semibold text-gray-900 mb-1">
                         {isFrench ? `Gardien de sécurité ${item}` : `Security guard ${item}`}
@@ -290,6 +270,71 @@ export default function ConfidentialitePage() {
                       </p>
                     </div>
                   </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Security Images Gallery Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <SectionHeading
+            title={isFrench ? 'Galerie de sécurité' : 'Security gallery'}
+            subtitle={isFrench
+              ? 'Nos gardiens de sécurité et systèmes de surveillance'
+              : 'Our security guards and surveillance systems'}
+            className="mb-12"
+          />
+          <div className="max-w-7xl mx-auto">
+            {/* Images de sécurité */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="relative h-64 md:h-80 rounded-lg overflow-hidden border-2 border-gray-200 shadow-lg"
+              >
+                <Image
+                  src="/images/gdn.jpg"
+                  alt={isFrench ? 'Sécurité' : 'Security'}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="relative h-64 md:h-80 rounded-lg overflow-hidden border-2 border-gray-200 shadow-lg"
+              >
+                <Image
+                  src="/images/cm.jpg"
+                  alt={isFrench ? 'Sécurité' : 'Security'}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              </motion.div>
+            </div>
+
+            {/* Note d'information */}
+            <Card className="p-6 bg-primary/5 border border-primary/20">
+              <div className="flex items-start space-x-4">
+                <ShieldCheck className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    {isFrench ? 'Sécurité renforcée' : 'Enhanced security'}
+                  </h4>
+                  <p className="text-gray-700">
+                    {isFrench
+                      ? 'Toutes nos agences sont équipées de systèmes de surveillance 24/7 et de gardiens de sécurité certifiés pour assurer votre protection et celle de vos transactions.'
+                      : 'All our branches are equipped with 24/7 surveillance systems and certified security guards to ensure your protection and that of your transactions.'}
+                  </p>
                 </div>
               </div>
             </Card>
