@@ -14,9 +14,9 @@ export const metadata: Metadata = {
   keywords: 'UBA, transfert d\'argent, cartes bancaires, change devises, Cameroun',
   authors: [{ name: 'Transfer and Exchange Services' }],
   icons: {
-    icon: '/images/favicon.ico',
-    shortcut: '/images/favicon.ico',
-    apple: '/images/favicon.ico',
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
   openGraph: {
     title: 'Transfer and Exchange Services | Premier Red Point UBA Cameroun',
