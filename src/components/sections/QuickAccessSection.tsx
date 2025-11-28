@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CreditCard, Building2, MapPin, Phone, MessageCircle, Mail, ArrowRight } from 'lucide-react';
+import { CreditCard, Building2, MapPin, Phone, MessageCircle, Mail } from 'lucide-react';
 import { formatWhatsAppLink, formatTelLink, formatEmailLink } from '@/lib/utils';
 import { COMPANY_INFO } from '@/lib/constants';
 import { useLanguage } from '@/context/LanguageContext';
@@ -142,14 +142,6 @@ export default function QuickAccessSection() {
                     <p className="text-sm text-gray-600 mb-4 group-hover:text-gray-900 transition-colors">
                       {link.description}
                     </p>
-
-                    {/* Arrow indicator */}
-                    <div className="flex items-center text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="text-sm font-semibold mr-2">
-                        {language === 'fr' ? 'En savoir plus' : 'Learn more'}
-                      </span>
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
                   </div>
 
                   {/* Bottom accent line */}

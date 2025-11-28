@@ -247,7 +247,7 @@ export default function HeroSection() {
                 transition={{ delay: 0.2, duration: 0.5 }}
                 className="inline-block mb-4"
               >
-                <span className="bg-yellow-400 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg">
+                <span className="bg-yellow-400 text-black px-4 py-2 rounded-full font-bold text-sm shadow-lg">
                   {t.badge}
                 </span>
               </motion.div>
